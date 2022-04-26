@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
+  title: 'IgorKha',
   tagline: 'My work notes and blog',
   url: 'https://igorkha.github.io',
   baseUrl: '/',
@@ -43,7 +43,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'IKha',
+        title: 'Homepage',
         // logo: {
         //   alt: 'IKha Logo',
         //   src: 'img/logo.svg',

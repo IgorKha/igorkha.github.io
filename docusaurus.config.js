@@ -119,7 +119,7 @@ const config = {
         // Public API key: it is safe to commit it
         apiKey: '449a8d644e404360bbc6838cb004ca21',
 
-        indexName: 'igorkhagithub',
+        indexName: 'ikhagithub',
 
         // Optional: see doc section below
         contextualSearch: true,

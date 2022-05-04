@@ -1,0 +1,96 @@
+---
+slug: Bandwidth-ZeroTier-on-NXP-LS1046
+title: Bandwidth ZeroTier on NXP LS1046
+authors: IgorKha
+tags: [test, zerotier, nxp]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+
+## Devices
+
+| **Device**          | **OS**           | **kernel** | **link** | **ZeroTier ver.** |
+|:-------------------:|:----------------:|:----------:|:--------:|:-----------------:|
+| [NXP LS1046A-RDB](https://www.nxp.com/design/qoriq-developer-resources/layerscape-ls1046a-reference-design-board:LS1046A-RDB)     | OpenWRT 21.02.02 | 5.4.179    | 10Gbps   | **1.6.6**         |
+| [NXP LS1046A Forlinx](https://www.forlinx.net/product/ls1046a-single-board-computer-22.html) | OpenWRT 21.02.02 | 5.4.179    | 10Gbps   | **1.6.6**         |
+
+<!--truncate-->
+
+## ZeroTier Flow Rules
+
+```text title="default zt flow rules"
+drop
+    not ethertype ipv4
+    and not ethertype arp
+    and not ethertype ipv6
+;
+accept;
+```
+
+## Result
+
+<Tabs>
+  <TabItem value="parallel-1" label="iperf 1 thread" default>
+    <CodeBlock language="text" title="iperf -c 172.22.36.168 -t 30">
+      {`------------------------------------------------------------
+Client connecting to 172.22.36.168, TCP port 5001
+TCP window size:  238 KByte (default)
+------------------------------------------------------------
+[  3] local 172.22.117.147 port 38266 connected with 172.22.36.168 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0-30.0 sec  1.47 GBytes   421 Mbits/sec`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="parallel-20" label="iperf 20 threads">
+    <CodeBlock language="text" title="iperf -c 172.22.36.168 -P 20 -t 60">
+      {`------------------------------------------------------------
+Client connecting to 172.22.36.168, TCP port 5001
+TCP window size: 2.45 MByte (default)
+------------------------------------------------------------
+[ 19] local 172.22.117.147 port 44320 connected with 172.22.36.168 port 5001
+[  3] local 172.22.117.147 port 44288 connected with 172.22.36.168 port 5001
+[  5] local 172.22.117.147 port 44292 connected with 172.22.36.168 port 5001
+[ 10] local 172.22.117.147 port 44302 connected with 172.22.36.168 port 5001
+[  4] local 172.22.117.147 port 44290 connected with 172.22.36.168 port 5001
+[  6] local 172.22.117.147 port 44294 connected with 172.22.36.168 port 5001
+[  9] local 172.22.117.147 port 44300 connected with 172.22.36.168 port 5001
+[ 17] local 172.22.117.147 port 44316 connected with 172.22.36.168 port 5001
+[ 13] local 172.22.117.147 port 44308 connected with 172.22.36.168 port 5001
+[  8] local 172.22.117.147 port 44298 connected with 172.22.36.168 port 5001
+[ 18] local 172.22.117.147 port 44318 connected with 172.22.36.168 port 5001
+[ 14] local 172.22.117.147 port 44310 connected with 172.22.36.168 port 5001
+[ 21] local 172.22.117.147 port 44324 connected with 172.22.36.168 port 5001
+[  7] local 172.22.117.147 port 44296 connected with 172.22.36.168 port 5001
+[ 20] local 172.22.117.147 port 44322 connected with 172.22.36.168 port 5001
+[ 12] local 172.22.117.147 port 44306 connected with 172.22.36.168 port 5001
+[ 11] local 172.22.117.147 port 44304 connected with 172.22.36.168 port 5001
+[ 16] local 172.22.117.147 port 44314 connected with 172.22.36.168 port 5001
+[ 22] local 172.22.117.147 port 44326 connected with 172.22.36.168 port 5001
+[ 15] local 172.22.117.147 port 44312 connected with 172.22.36.168 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  4]  0.0-60.0 sec   153 MBytes  21.3 Mbits/sec
+[  8]  0.0-60.0 sec   165 MBytes  23.1 Mbits/sec
+[ 18]  0.0-60.0 sec   164 MBytes  23.0 Mbits/sec
+[  7]  0.0-60.0 sec   167 MBytes  23.3 Mbits/sec
+[ 11]  0.0-60.0 sec   180 MBytes  25.2 Mbits/sec
+[ 19]  0.0-60.1 sec   135 MBytes  18.8 Mbits/sec
+[ 20]  0.0-60.1 sec   148 MBytes  20.6 Mbits/sec
+[ 15]  0.0-60.1 sec   207 MBytes  28.9 Mbits/sec
+[ 22]  0.0-60.2 sec   204 MBytes  28.5 Mbits/sec
+[ 17]  0.0-60.2 sec   145 MBytes  20.2 Mbits/sec
+[  5]  0.0-60.3 sec   141 MBytes  19.6 Mbits/sec
+[ 14]  0.0-60.3 sec   148 MBytes  20.7 Mbits/sec
+[ 12]  0.0-60.3 sec   174 MBytes  24.2 Mbits/sec
+[ 16]  0.0-60.3 sec   145 MBytes  20.2 Mbits/sec
+[ 21]  0.0-60.3 sec   160 MBytes  22.3 Mbits/sec
+[ 10]  0.0-60.4 sec   195 MBytes  27.1 Mbits/sec
+[  6]  0.0-60.4 sec   192 MBytes  26.6 Mbits/sec
+[  9]  0.0-60.7 sec   104 MBytes  14.3 Mbits/sec
+[ 13]  0.0-60.9 sec   149 MBytes  20.6 Mbits/sec
+[  3]  0.0-61.0 sec   142 MBytes  19.6 Mbits/sec
+[SUM]  0.0-61.0 sec  3.14 GBytes   443 Mbits/sec`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>

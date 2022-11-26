@@ -1,5 +1,5 @@
 ---
-slug: Arch Linux with Yubico U2F
+slug: Arch-Linux-with-Yubico-U2F
 title: Arch Linux with Yubico U2F
 authors: IgorKha
 tags: [security, key, yubico, U2F, FIDO2, arch, linux, pam, sddm, ssh]

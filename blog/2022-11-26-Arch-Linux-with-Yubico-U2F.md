@@ -13,6 +13,7 @@ This method will work with ANY security keys that support the U2F standard
 * Linux
 * root access to the System you are gonna configure 2FA for
 
+<!--truncate-->
 ## Installation the pam-u2f
 
 ### Arch Linux
@@ -45,8 +46,11 @@ The `pam-u2f` package provides a handy tool to configure Security Keys for our u
 
     `pamu2fcfg >> ~/.config/Yubico/u2f_keys`
 
->*pamu2fcfg example output:*
->`username:1pQTIDIGWLfyRhYjiFpJeSlSxN4fqdY0ucl59VxQdS0qV9QxDgb5HGL1Hd18o1gQ1wr9B3BP60tk4735JrIE7A==,KPMgCkrhND9yMKaImqwgywBVJlIHc8rDUVbMirXCG70X+bzld/a6HWOjaSlzUXinVp3yfofx96wgmSWkGX6poQ==,es256,+presence`
+_pamu2fcfg example output:_
+
+ ```text title="~/.config/Yubico/u2f_keys"
+ username:1pQTIDIGWLfyRhYjiFpJeSlSxN4fqdY0ucl59VxQdS0qV9QxDgb5HGL1Hd18o1gQ1wr9B3BP60tk4735JrIE7A==,KPMgCkrhND9yMKaImqwgywBVJlIHc8rDUVbMirXCG70X+bzld/a6HWOjaSlzUXinVp3yfofx96wgmSWkGX6poQ==,es256,+presence
+ ```
 
 ### Central Authorization Mapping
 
@@ -90,9 +94,11 @@ sddm config **after** adding U2F:
 ```text title="/etc/pam.d/sddm"
 #%PAM-1.0
 
+// highlight-next-line
 auth            include         system-local-login
 -auth           optional        pam_gnome_keyring.so
 -auth   optional  pam_kwallet5.so
+// highlight-next-line
 auth            required        pam_u2f.so authfile=/home/<username>/.config/Yubico/u2f_keys
 
 account         include         system-login
@@ -120,6 +126,7 @@ Example:
 
 ```text title="/etc/pam.d/sudo"
 #%PAM-1.0
+// highlight-next-line
 auth            sufficient        pam_u2f.so authfile=/home/<username>/.config/Yubico/u2f_keys cue [cue_prompt=Please Confirm Your Identity.]
 auth            include         system-auth
 account         include         system-auth
@@ -139,9 +146,16 @@ or
 
 ## Additional information
 
+:::info
+
 * [YubiKey Manager AppImage](https://developers.yubico.com/yubikey-manager-qt/Releases/yubikey-manager-qt-latest-linux.AppImage)
 * [pam-u2f](https://github.com/Yubico/pam-u2f)
 * [PAM base-stack in Arch Linux](https://wiki.archlinux.org/title/PAM#PAM_base-stack)
 * [Linux user authentication with PAM](https://wiki.archlinux.org/title/YubiKey#Linux_user_authentication_with_PAM)
 * [More information for module arguments](https://github.com/Yubico/pam-u2f#module-arguments)
 * [YubiKey Full Disk Encryption](https://github.com/agherzan/yubikey-full-disk-encryption)
+* [Installing Yubico Software on Linux](https://support.yubico.com/hc/en-us/articles/360016649039-Installing-Yubico-Software-on-Linux)
+* [Using Your U2F YubiKey with Linux](https://support.yubico.com/hc/en-us/articles/360013708900-Using-Your-U2F-YubiKey-with-Linux)
+* [Yubico Support](https://support.yubico.com/)
+
+:::

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[2535],{5641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Arch Linux with Yubico U2F","permalink":"/blog/Arch Linux with Yubico U2F"},{"title":"Bandwidth ZeroTier on NXP LS1046","permalink":"/blog/Bandwidth-ZeroTier-on-NXP-LS1046"}]}')}}]);

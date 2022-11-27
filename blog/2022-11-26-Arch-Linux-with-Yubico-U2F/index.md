@@ -112,6 +112,66 @@ session         include         system-login
 -session  optional  pam_kwallet5.so auto_start
 ```
 
+:::tip
+
+Add the same version to the top of `/etc/pam.d/kde` to protect the KDE Plasma lock screen.
+
+`auth            required        pam_u2f.so authfile=/home/<username>/.config/Yubico/u2f_keys`
+
+:::
+
+:::info PAM Configuration (Reference)
+
+<details>
+  <summary>PAM Configuration File Syntax</summary>
+
+The entries in the configuration file are in the format:
+
+**`service-name module-type control-flag module-path module-options`**
+
+---
+
+**service-name** - Name of the service, for example, `ftp`, `login`, or `passwd`. An application can use different service names for the services that the application provides. For example, the Solaris secure shell daemon uses these service names: `sshd-none`, `sshd-password`, `sshd-kbdint`, `sshd-pubkey`, and `sshd-hostbased`. The service-name other is a predefined name that is used as a wildcard service-name. If a particular service-name is not found in the configuration file, the configuration for other is used.
+
+**module-type** - The type of service, that is, auth, account, session, or password.
+
+**control-flag** - Indicates the role of the module in determining the integrated success or failure value for the service. Valid control flags are binding, include, optional, required, requisite, and sufficient. See below how PAM Stacking Works for information on the use of these flags.
+
+**module-path** - The path to the library object that implements the service. If the pathname is not absolute, the pathname is assumed to be relative to `/usr/lib/security/$ISA/`. Use the architecture-dependent macro $ISA to cause `libpam` to look in the directory for the particular architecture of the application.
+
+**module-options** - Options that are passed to the service modules. A module's man page describes the options that are accepted by that module. Typical module options include `nowarn` and `debug`.
+</details>
+
+<details>
+  <summary>How PAM Stacking Works</summary>
+
+The control flag indicates the role that a PAM module plays in determining access to the service. The control flags and their effects are:
+
+**Binding** – Success in meeting a binding module's requirements returns success immediately to the application if no previous required modules have failed. If these conditions are met, then no further execution of modules occurs. Failure causes a required failure to be recorded and the processing of modules to be continued.
+
+**Include** – Adds lines from a separate PAM configuration file to be used at this point in the PAM stack. This flag does not control success or failure behaviors. When a new file is read, the PAM include stack is incremented. When the stack check in the new file finishes, the include stack value is decremented. When the end of a file is reached and the PAM include stack is 0, then the stack processing ends. The maximum number for the PAM include stack is 32.
+
+**Optional** – Success in meeting an optional module's requirements is not necessary for using the service. Failure causes an optional failure to be recorded.
+
+**Required** – Success in meeting a required module's requirements is necessary for using the service. Failure results in an error return after the remaining modules for this service have been executed. Final success for the service is returned only if no binding or required modules have reported failures.
+
+**Requisite** – Success in meeting a requisite module's requirements is necessary for using the service. Failure results in an immediate error return with no further execution of modules. All requisite modules for a service must return success for the function to be able to return success to the application.
+
+**Sufficient** – If no previous required failures have occurred, success in a sufficient module returns success to the application immediately with no further execution of modules. Failure causes an optional failure to be recorded.
+
+The following two diagrams shows how access is determined in the integration process. The first diagram indicates how success or failure is recorded for each type of control flag. The second diagram shows how the integrated value is determined.
+
+**_Effect of Control Flags_**
+
+![img](./pam.run_stack1.png)
+
+**_How Integrated Value Is Determined_**
+
+![img](./pam.run_stack2.png)
+</details>
+
+:::
+
 ### Passwordless sudo with U2F
 
 You can use U2F key for Passwordless sudo i.e only the U2f key would be needed to run sudo commands

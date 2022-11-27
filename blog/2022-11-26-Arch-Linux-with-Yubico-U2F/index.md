@@ -5,15 +5,18 @@ authors: IgorKha
 tags: [security, key, yubico, U2F, FIDO2, arch, linux, pam, sddm, ssh]
 ---
 
-## Prerequisites
+![Linux-u2f.png](./Linux-u2f.png)
 
 This method will work with ANY security keys that support the U2F standard
+
+<!--truncate-->
+
+## Prerequisites
 
 * A Security key supporting the U2F Standard
 * Linux
 * root access to the System you are gonna configure 2FA for
 
-<!--truncate-->
 ## Installation the pam-u2f
 
 ### Arch Linux

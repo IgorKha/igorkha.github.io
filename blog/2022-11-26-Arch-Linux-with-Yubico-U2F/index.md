@@ -1,8 +1,8 @@
 ---
-slug: Arch-Linux-with-Yubico-U2F
-title: Arch Linux with Yubico U2F
+slug: arch-linux-with-u2f
+title: Arch Linux with U2F
 authors: IgorKha
-tags: [security, key, yubico, U2F, FIDO2, arch, linux, pam, sddm, ssh]
+tags: [security, key, yubico, solokeys, U2F, FIDO2, arch, linux, pam, sddm, ssh]
 ---
 
 ![Linux-u2f.png](./Linux-u2f.png)
@@ -21,11 +21,15 @@ This method will work with ANY security keys that support the U2F standard
 
 ### Arch Linux
 
-`sudo pacman -Sy --needed pam-u2f`
+```bash
+sudo pacman -Sy --needed pam-u2f
+```
 
 ### Debian/Ubuntu
 
-`sudo apt update && sudo apt install libpam-u2f`
+```bash
+sudo apt update && sudo apt install libpam-u2f
+```
 
 ### Source code
 
@@ -67,17 +71,23 @@ Report bugs at <https://github.com/Yubico/pam-u2f/issues>.
 
 1. Create folder:
 
-    `mkdir -p ~/.config/Yubico`
+    ```bash
+    mkdir -p ~/.config/Yubico
+    ```
 
 2. Make user keys:
 
-    `pamu2fcfg > ~/.config/Yubico/u2f_keys`
+    ```bash
+    pamu2fcfg > ~/.config/Yubico/u2f_keys`
+    ```
 
     2.1 Add Additional keys using
 
-    `pamu2fcfg >> ~/.config/Yubico/u2f_keys`
+    ```bash
+    pamu2fcfg >> ~/.config/Yubico/u2f_keys
+    ```
 
-_pamu2fcfg example output:_
+*pamu2fcfg example output:*
 
  ```text title="~/.config/Yubico/u2f_keys"
  username:1pQTIDIGWLfyRhYjiFpJeSlSxN4fqdY0ucl59VxQdS0qV9QxDgb5HGL1Hd18o1gQ1wr9B3BP60tk4735JrIE7A==,KPMgCkrhND9yMKaImqwgywBVJlIHc8rDUVbMirXCG70X+bzld/a6HWOjaSlzUXinVp3yfofx96wgmSWkGX6poQ==,es256,+presence
@@ -87,7 +97,9 @@ _pamu2fcfg example output:_
 
 Create a file e.g. `/etc/u2f_mappings`. The file must contain a user name, and the information obtained during the registration procedure.
 
-`pamu2fcfg -u username1 >> /etc/u2f_mappings`
+```bash
+pamu2fcfg -u username1 >> /etc/u2f_mappings
+```
 
 ## Activate the pam_u2f.so module in PAM
 
@@ -192,11 +204,11 @@ The control flag indicates the role that a PAM module plays in determining acces
 
 The following two diagrams shows how access is determined in the integration process. The first diagram indicates how success or failure is recorded for each type of control flag. The second diagram shows how the integrated value is determined.
 
-**_Effect of Control Flags_**
+***Effect of Control Flags***
 
 ![img](./pam.run_stack1.png)
 
-**_How Integrated Value Is Determined_**
+***How Integrated Value Is Determined***
 
 ![img](./pam.run_stack2.png)
 </details>
@@ -227,19 +239,60 @@ session         include         system-auth
 
 ## SSH Credentials
 
-To generate SSH credentials OpenSSH version 8.2 or later is required. It is then possible to generate a credential file with:
+First need to make sure the client has [OpenSSH 8.2](https://www.openssh.com/txt/release-8.2) or higher installed:
 
-`ssh-keygen -t ecdsa-sk -f ./.ssh/filename`
+```bash
+$ ssh -V
+OpenSSH_9.1p1, OpenSSL 3.0.7 1 Nov 2022
+```
 
-or
+To generate a new SSH key pair, which can be either `ecdsa-sk` or `ed25519-sk` key pair. The `-sk` extension stands for **security key**. Please note that the `ed25519-sk` key pair is only supported by new YubiKeys with firmware 5.2.3 or higher that supports FIDO2. This means that YubiKeys with firmware below 5.2.3 are only compatible with ecdsa-sk key pairs. If possible, generate an `ed25519-sk` SSH key pair for [this reason](https://www.cryptsus.com/blog/how-to-secure-your-ssh-server-with-public-key-elliptic-curve-ed25519-crypto.html).
 
-`ssh-keygen -t ed25519-sk -f ./.ssh/filename`
+:::tip
+
+You can check the YubiKey firmware* version with the following command.
+
+```bash
+$ lsusb -v 2>/dev/null | grep -A2 Yubico | grep "bcdDevice" | awk '{print $2}'
+5.27
+```
+
+Or we can use  [YubiKey Manager](#additional-information)
+
+![YubiKey Manager AppImage](yubikey-appimage.png)
+
+***\*Yubico does not allow its firmware to be modified to minimize the physical attack surface.***
+
+:::
+
+It is then possible to generate a credential file with:
+
+```bash
+ssh-keygen -t ed25519-sk -C "$(hostname)-Yubikey"
+```
+
+![ssh-keygen](ssh-keygen-ed25519-sk.png)
+
+![ssh-keys](ssh-keys.png)
+
+Add your new SSH key-pair on remote host
+
+```bash
+ssh-copy-id -i ~/.ssh/id_ed25519_sk.pub user@192.168.1.1
+```
+
+Use:
+
+```bash
+ssh -i ~/.ssh/id_ed25519_sk user@192.168.1.1
+```
 
 ## Additional information
 
 :::info
 
 * [YubiKey Manager AppImage](https://developers.yubico.com/yubikey-manager-qt/Releases/yubikey-manager-qt-latest-linux.AppImage)
+* [SoloKeys (open-source hardware and firmware) as an alternative to YubiKeys (closed source)](https://solokeys.com/)
 * [pam-u2f](https://github.com/Yubico/pam-u2f)
 * [PAM base-stack in Arch Linux](https://wiki.archlinux.org/title/PAM#PAM_base-stack)
 * [Linux user authentication with PAM](https://wiki.archlinux.org/title/YubiKey#Linux_user_authentication_with_PAM)

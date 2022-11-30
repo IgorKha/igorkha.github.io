@@ -35,6 +35,34 @@ This method will work with ANY security keys that support the U2F standard
 
 The `pam-u2f` package provides a handy tool to configure Security Keys for our users called `pamu2fcfg`
 
+```text  title="pamu2fcfg --help"
+Usage: pamu2fcfg [OPTION]...
+Perform a FIDO2/U2F registration operation and print a configuration line that
+can be used with the pam_u2f module.
+
+  -h, --help               Print help and exit
+      --version            Print version and exit
+  -o, --origin=STRING      Relying party ID to use during registration,
+                             defaults to pam://hostname
+  -i, --appid=STRING       Relying party name to use during registration,
+                             defaults to the value of origin
+  -t, --type=STRING        COSE type to use during registration (ES256, EDDSA,
+                             or RS256), defaults to ES256
+  -r, --resident           Generate a resident (discoverable) credential
+  -P, --no-user-presence   Allow the credential to be used without ensuring the
+                             user's presence
+  -N, --pin-verification   Require PIN verification during authentication
+  -V, --user-verification  Require user verification during authentication
+  -d, --debug              Print debug information
+  -v, --verbose            Print information about chosen origin and appid
+  -u, --username=STRING    The name of the user registering the device,
+                             defaults to the current user name
+  -n, --nouser             Print only registration information (key handle,
+                             public key, and options), useful for appending
+
+Report bugs at <https://github.com/Yubico/pam-u2f/issues>.
+```
+
 ### Individual Authorization Mapping by User
 
 1. Create folder:

@@ -33,13 +33,17 @@ sudo apt update && sudo apt install libpam-u2f
 
 ### Source code
 
-[Github](https://github.com/Yubico/pam-u2f)
+[![github](https://img.shields.io/badge/Github-Yubico/pam--u2f-black?logo=github)](https://github.com/Yubico/pam-u2f)
+
+![GitHub Repo stars](https://img.shields.io/github/stars/yubico/pam-u2f?color=yellow&logo=github)
+
+![GitHub last commit](https://img.shields.io/github/last-commit/Yubico/pam-u2f?logo=github)
 
 ## Configure Security keys
 
 The `pam-u2f` package provides a handy tool to configure Security Keys for our users called `pamu2fcfg`
 
-```text  title="pamu2fcfg --help"
+```text  title="$ pamu2fcfg --help"
 Usage: pamu2fcfg [OPTION]...
 Perform a FIDO2/U2F registration operation and print a configuration line that
 can be used with the pam_u2f module.
@@ -89,7 +93,7 @@ Report bugs at <https://github.com/Yubico/pam-u2f/issues>.
 
 *pamu2fcfg example output:*
 
- ```text title="~/.config/Yubico/u2f_keys"
+ ```text title="/home/user/.config/Yubico/u2f_keys"
  username:1pQTIDIGWLfyRhYjiFpJeSlSxN4fqdY0ucl59VxQdS0qV9QxDgb5HGL1Hd18o1gQ1wr9B3BP60tk4735JrIE7A==,KPMgCkrhND9yMKaImqwgywBVJlIHc8rDUVbMirXCG70X+bzld/a6HWOjaSlzUXinVp3yfofx96wgmSWkGX6poQ==,es256,+presence
  ```
 
@@ -230,7 +234,7 @@ Example:
 ```text title="/etc/pam.d/sudo"
 #%PAM-1.0
 // highlight-next-line
-auth            sufficient        pam_u2f.so authfile=/home/<username>/.config/Yubico/u2f_keys cue [cue_prompt=Please Confirm Your Identity.]
+auth            sufficient      pam_u2f.so authfile=/home/<username>/.config/Yubico/u2f_keys cue [cue_prompt=Please Confirm Your Identity.]
 auth            include         system-auth
 account         include         system-auth
 session         include         system-auth
@@ -275,7 +279,7 @@ ssh-keygen -t ed25519-sk -C "$(hostname)-Yubikey"
 
 ![ssh-keys](ssh-keys.png)
 
-Add your new SSH key-pair on remote host
+Add your new public key to the remote host
 
 ```bash
 ssh-copy-id -i ~/.ssh/id_ed25519_sk.pub user@192.168.1.1

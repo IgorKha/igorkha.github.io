@@ -82,7 +82,7 @@ Report bugs at <https://github.com/Yubico/pam-u2f/issues>.
 2. Make user keys:
 
     ```bash
-    pamu2fcfg > ~/.config/Yubico/u2f_keys`
+    pamu2fcfg > ~/.config/Yubico/u2f_keys
     ```
 
     2.1 Add Additional keys using

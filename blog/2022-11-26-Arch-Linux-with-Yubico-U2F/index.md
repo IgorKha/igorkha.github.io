@@ -118,7 +118,7 @@ Configure pam-u2f as a `required` module after your primary authentication modul
 
 sddm config **before** adding U2F:
 
-```text title="/etc/pam.d/sddm"
+```text title="/etc/pam.d/sddm" showLineNumbers
 #%PAM-1.0
 
 auth           include         system-login
@@ -138,7 +138,7 @@ session         include         system-login
 
 sddm config **after** adding U2F:
 
-```text title="/etc/pam.d/sddm"
+```text title="/etc/pam.d/sddm" showLineNumbers
 #%PAM-1.0
 
 // highlight-next-line
@@ -257,8 +257,7 @@ To generate a new SSH key pair, which can be either `ecdsa-sk` or `ed25519-sk` k
 You can check the YubiKey firmware* version with the following command.
 
 ```bash
-$ lsusb -v 2>/dev/null | grep -A2 Yubico | grep "bcdDevice" | awk '{print $2}'
-5.27
+lsusb -v 2>/dev/null | grep -A2 Yubico | grep "bcdDevice" | awk '{print $2}'
 ```
 
 Or we can use  [YubiKey Manager](#additional-information)

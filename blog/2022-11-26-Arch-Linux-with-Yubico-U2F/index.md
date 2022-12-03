@@ -121,6 +121,7 @@ sddm config **before** adding U2F:
 ```text title="/etc/pam.d/sddm" showLineNumbers
 #%PAM-1.0
 
+// highlight-error
 auth           include         system-login
 -auth           optional        pam_gnome_keyring.so
 -auth   optional  pam_kwallet5.so

@@ -120,7 +120,7 @@ const config = {
           },
           {
             className: 'code-block-red-line',
-            line: 'highlight-error',
+            line: 'highlight-red',
           },
           {
             className: 'code-block-green-line',

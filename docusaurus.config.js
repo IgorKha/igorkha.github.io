@@ -119,8 +119,16 @@ const config = {
             block: { start: 'highlight-start', end: 'highlight-end' },
           },
           {
-            className: 'code-block-error-line',
+            className: 'code-block-red-line',
             line: 'highlight-error',
+          },
+          {
+            className: 'code-block-green-line',
+            line: 'highlight-green',
+          },
+          {
+            className: 'code-block-yellow-line',
+            line: 'highlight-yellow',
           },
         ],
       },

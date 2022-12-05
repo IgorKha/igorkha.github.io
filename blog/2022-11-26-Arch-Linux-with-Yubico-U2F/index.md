@@ -121,7 +121,7 @@ sddm config **before** adding U2F:
 ```text title="/etc/pam.d/sddm" showLineNumbers
 #%PAM-1.0
 
-// highlight-error
+// highlight-red
 auth           include         system-login
 -auth           optional        pam_gnome_keyring.so
 -auth   optional  pam_kwallet5.so
@@ -142,11 +142,11 @@ sddm config **after** adding U2F:
 ```text title="/etc/pam.d/sddm" showLineNumbers
 #%PAM-1.0
 
-// highlight-next-line
+// highlight-green
 auth            include         system-local-login
 -auth           optional        pam_gnome_keyring.so
 -auth   optional  pam_kwallet5.so
-// highlight-next-line
+// highlight-green
 auth            required        pam_u2f.so authfile=/home/<username>/.config/Yubico/u2f_keys
 
 account         include         system-login

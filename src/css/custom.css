@@ -51,3 +51,7 @@
   padding: 0 var(--ifm-pre-padding);
   border-left: 3px solid #f5c21180;
 }
+
+code {
+  color: rgb(255, 85, 85);
+}

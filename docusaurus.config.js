@@ -43,7 +43,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Homepage',
+        title: '$ cd ~/',
         // logo: {
         //   alt: 'IKha Logo',
         //   src: 'img/logo.svg',

@@ -4,10 +4,23 @@
         <title>IgorKha Blog</title>
         <link>https://igorkha.github.io/blog</link>
         <description>IgorKha Blog</description>
-        <lastBuildDate>Sat, 26 Nov 2022 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 07 Dec 2022 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Simple aarch64 emulation in Proxmox]]></title>
+            <link>https://igorkha.github.io/blog/proxmox-qemu-aarch64</link>
+            <guid>proxmox-qemu-aarch64</guid>
+            <pubDate>Wed, 07 Dec 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[Simple aarch64 emulation in Proxmox]]></description>
+            <content:encoded><![CDATA[<p><img loading="lazy" alt="Simple aarch64 emulation in Proxmox" src="/assets/images/qemuarm64-728819e6bfcaa6948067105f553cc4b4.png" width="500" height="200" class="img_ev3q"></p><div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockTitle_Ktv7">nano /etc/pve/qemu-server/124.conf</div><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar"><code class="codeBlockLines_e6Vv"><span class="token-line code-block-yellow-line" style="color:#393A34"><span class="token plain">#vmgenid%3A 0e34fef6-0336-4748-86f8-314346f2d087</span><br></span><span class="token-line code-block-green-line" style="color:#393A34"><span class="token plain">arch: aarch64</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">bios: ovmf</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">boot: order=scsi2;scsi0;net0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">cores: 4</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">memory: 2048</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">meta: creation-qemu=7.1.0,ctime=1670353758</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">name: arm</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">net0: e1000=0A:57:71:2D:2C:88,bridge=vmbr0,firewall=1</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">numa: 0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">ostype: l26</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">scsi0: raid:124/vm-124-disk-0.qcow2,size=32G</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">scsi2: raid:iso/debian-11.5.0-arm64-netinst.iso,media=cdrom,size=329004K</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">scsihw: virtio-scsi-pci</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">serial0: socket</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">smbios1: uuid=998276ea-30eb-4bd1-b255-e9691ee5a96e</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">sockets: 1</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">vga: serial0</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg class="copyButtonIcon_y97N" viewBox="0 0 24 24"><path d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg class="copyButtonSuccessIcon_LjdS" viewBox="0 0 24 24"><path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>]]></content:encoded>
+            <category>qemu</category>
+            <category>proxmox</category>
+            <category>linux</category>
+            <category>debian</category>
+            <category>aarch64</category>
+        </item>
         <item>
             <title><![CDATA[Arch Linux with U2F]]></title>
             <link>https://igorkha.github.io/blog/arch-linux-with-u2f</link>

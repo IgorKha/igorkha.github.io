@@ -22,6 +22,7 @@ function HomepageHeader() {
           </Link>
         </div> */}
       </div>
+      <meta name="google-site-verification" content="aRKqxYi84oM9TZM4-flY0uNq3bOja5YGvEqH_XNpDOY" />
     </header>
   );
 }

@@ -5,9 +5,13 @@ authors: IgorKha
 tags: [qemu, proxmox, linux, debian, aarch64]
 ---
 
+import BrowserWindow from '@site/src/components/BrowserWindow';
+
 ![Simple aarch64 emulation in Proxmox](./qemuarm64.png)
 
 <!--truncate-->
+
+<BrowserWindow>
 
 ```text title="nano /etc/pve/qemu-server/124.conf"
 // highlight-yellow
@@ -31,3 +35,4 @@ smbios1: uuid=998276ea-30eb-4bd1-b255-e9691ee5a96e
 sockets: 1
 vga: serial0
 ```
+</BrowserWindow>

@@ -2,4 +2,6 @@
 sidebar_position: 1
 ---
 
-# Intro
+import DocCardList from '@theme/DocCardList';
+
+<DocCardList />

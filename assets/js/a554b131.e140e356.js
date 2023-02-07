@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[3884],{245:e=>{e.exports=JSON.parse('{"label":"sbc-bench","permalink":"/blog/tags/sbc-bench","allTagsPath":"/blog/tags","count":1}')}}]);

@@ -2,12 +2,13 @@
 slug: Bandwidth-ZeroTier-on-NXP-LS1046
 title: Bandwidth ZeroTier on NXP LS1046
 authors: IgorKha
-tags: [test, zerotier, nxp]
+tags: [benchmark, zerotier, nxp, networks]
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import CodeBlock from '@theme/CodeBlock';
+import BrowserWindow from '@site/src/components/BrowserWindow';
 
 ## Devices
 
@@ -20,6 +21,8 @@ import CodeBlock from '@theme/CodeBlock';
 
 ## ZeroTier Flow Rules
 
+<BrowserWindow>
+
 ```text title="default zt flow rules"
 drop
     not ethertype ipv4
@@ -28,11 +31,13 @@ drop
 ;
 accept;
 ```
+</BrowserWindow>
 
 ## Result
 
 <Tabs>
   <TabItem value="parallel-1" label="iperf 1 thread" default>
+  <BrowserWindow>
     <CodeBlock language="text" title="iperf -c 172.22.36.168 -t 30">
       {`------------------------------------------------------------
 Client connecting to 172.22.36.168, TCP port 5001
@@ -42,8 +47,10 @@ TCP window size:  238 KByte (default)
 [ ID] Interval       Transfer     Bandwidth
 [  3]  0.0-30.0 sec  1.47 GBytes   421 Mbits/sec`}
     </CodeBlock>
+  </BrowserWindow>
   </TabItem>
   <TabItem value="parallel-20" label="iperf 20 threads">
+  <BrowserWindow>
     <CodeBlock language="text" title="iperf -c 172.22.36.168 -P 20 -t 60">
       {`------------------------------------------------------------
 Client connecting to 172.22.36.168, TCP port 5001
@@ -92,5 +99,6 @@ TCP window size: 2.45 MByte (default)
 [  3]  0.0-61.0 sec   142 MBytes  19.6 Mbits/sec
 [SUM]  0.0-61.0 sec  3.14 GBytes   443 Mbits/sec`}
     </CodeBlock>
+  </BrowserWindow>
   </TabItem>
 </Tabs>

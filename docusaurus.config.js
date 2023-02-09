@@ -55,6 +55,7 @@ const config = {
     ],
   ],
   plugins: [
+    require.resolve('docusaurus-plugin-image-zoom'),
     [
       '@easyops-cn/docusaurus-search-local',
       {
@@ -64,11 +65,25 @@ const config = {
         highlightSearchTermsOnTargetPage: true,
       },
     ],
+    // [
+    //   require.resolve("docusaurus-plugin-image-zoom")
+    // ],
+
   ],
   
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      zoom: {
+        selector: '.markdown :not(em) > img',
+        config: {
+          // options you can specify via https://github.com/francoischalifour/medium-zoom#usage
+          background: {
+            light: 'rgb(255, 255, 255)',
+            dark: 'rgb(50, 50, 50)'
+          }
+        }
+      },
       colorMode: {
         defaultMode: 'dark',
         // disableSwitch: true,
@@ -185,29 +200,6 @@ const config = {
           },
         ],
       },
-      // algolia: {
-      //   // The application ID provided by Algolia
-      //   appId: 'XT7FQT68SU',
-
-      //   // Public API key: it is safe to commit it
-      //   apiKey: '449a8d644e404360bbc6838cb004ca21',
-
-      //   indexName: 'ikhagithub',
-
-      //   // Optional: see doc section below
-      //   contextualSearch: true,
-
-      //   // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
-      //   // externalUrlRegex: 'external\\.com|domain\\.com',
-
-      //   // Optional: Algolia search parameters
-      //   // searchParameters: {},
-
-      //   // Optional: path for search page that enabled by default (`false` to disable it)
-      //   // searchPagePath: 'search',
-
-      //   //... other Algolia params
-      // },
       metadata: [{ name: 'google-site-verification', content: 'aRKqxYi84oM9TZM4-flY0uNq3bOja5YGvEqH_XNpDOY' }],
     }),
 };

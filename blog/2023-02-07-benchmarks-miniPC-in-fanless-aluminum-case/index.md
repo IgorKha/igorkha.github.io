@@ -22,6 +22,8 @@ tags: [intel, sbc-bench, benchmark]
 
 ## sbc-bench without cooling
 
+[Link ix.io](http://ix.io/4nmo)
+
 ```yaml title="./sbc-bench.sh -c"
 sbc-bench v0.9.12  / i7-1165G7 @ 2.80GHz (Tue, 07 Feb 2023 08:23:42 +0000)
 

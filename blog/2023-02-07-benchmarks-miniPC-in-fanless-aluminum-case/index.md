@@ -4,6 +4,7 @@ title: Benchmarks miniPC in fanless aluminum case
 authors: IgorKha
 tags: [intel, sbc-bench, benchmark]
 ---
+import BrowserWindow from '@site/src/components/BrowserWindow';
 
 ![front_case](./img/IMG_1230.jpg)
 
@@ -43,1875 +44,455 @@ tags: [intel, sbc-bench, benchmark]
 ![5v_Fan_3pins](./img/IMG_1240.jpg)
 </details>
 
-## sbc-bench without cooling
-
-[Link ix.io](http://ix.io/4nmo)
-
-```yaml title="./sbc-bench.sh -c"
-sbc-bench v0.9.12  / i7-1165G7 @ 2.80GHz (Tue, 07 Feb 2023 08:23:42 +0000)
-
-Distributor ID:	Ubuntu
-Description:	Ubuntu 20.04.5 LTS
-Release:	20.04
-Codename:	focal
-
-BIOS/UEFI:
-	Vendor: American Megatrends International, LLC.
-	Version: 5.19
-	Release Date: 03/30/2021
-	BIOS Revision: 5.19
-
-/usr/bin/gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
-
-Uptime: 08:23:42 up 19:30,  1 user,  load average: 0.35, 0.09, 0.03,  87.0°C,  35903915
-
-Linux 5.4.0-137-generic (supernoserver) 	02/07/23 	_x86_64_	(8 CPU)
-
-avg-cpu:  %user   %nice %system %iowait  %steal   %idle
-           0.07    0.00    0.02    0.07    0.00   99.84
-
-Device             tps    kB_read/s    kB_wrtn/s    kB_dscd/s    kB_read    kB_wrtn    kB_dscd
-nvme0n1          27.79       906.83        24.68         0.00   63677709    1733225          0
-
-              total        used        free      shared  buff/cache   available
-Mem:          7.5Gi       365Mi       7.0Gi       1.0Mi       156Mi       6.9Gi
-Swap:         4.0Gi       0.0Ki       4.0Gi
-
-Filename				Type		Size	Used	Priority
-/swap.img                              	file    	4194300	512	-2
-
-##########################################################################
-
-Intel P-States: Intel P-state driver initializing, HWP enabled
-
-Checking cpufreq OPP:
-
-Cpufreq OPP: 4700    Measured: 4517 (4688.133/4573.885/4289.001)     (-3.9%)
-Cpufreq OPP:  400    Measured:  402    (403.426/403.314/400.935)
-
-##########################################################################
-
-Hardware sensors:
-
-acpitz-acpi-0
-temp1:        +27.8 C  (crit = +119.0 C)
-
-coretemp-isa-0000
-Package id 0:  +48.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 0:        +47.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 1:        +47.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 2:        +45.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 3:        +48.0 C  (high = +100.0 C, crit = +100.0 C)
-
-##########################################################################
-
-Executing benchmark on cpu0:
-
-tinymembench v0.4.9 (simple benchmark for memory throughput and latency)
-
-==========================================================================
-== Memory bandwidth tests                                               ==
-==                                                                      ==
-== Note 1: 1MB = 1000000 bytes                                          ==
-== Note 2: Results for 'copy' tests show how many bytes can be          ==
-==         copied per second (adding together read and writen           ==
-==         bytes would have provided twice higher numbers)              ==
-== Note 3: 2-pass copy means that we are using a small temporary buffer ==
-==         to first fetch data into it, and only then write it to the   ==
-==         destination (source -> L1 cache, L1 cache -> destination)    ==
-== Note 4: If sample standard deviation exceeds 0.1%, it is shown in    ==
-==         brackets                                                     ==
-==========================================================================
-
- C copy backwards                                     :   6499.5 MB/s (1.3%)
- C copy backwards (32 byte blocks)                    :   6525.9 MB/s (0.1%)
- C copy backwards (64 byte blocks)                    :   6530.6 MB/s (2.9%)
- C copy                                               :   6548.2 MB/s (0.7%)
- C copy prefetched (32 bytes step)                    :   5511.2 MB/s
- C copy prefetched (64 bytes step)                    :   5514.0 MB/s
- C 2-pass copy                                        :   6021.6 MB/s (0.2%)
- C 2-pass copy prefetched (32 bytes step)             :   4905.5 MB/s (0.2%)
- C 2-pass copy prefetched (64 bytes step)             :   4898.3 MB/s
- C fill                                               :  10792.2 MB/s (2.6%)
- C fill (shuffle within 16 byte blocks)               :  10830.2 MB/s (0.5%)
- C fill (shuffle within 32 byte blocks)               :  10831.9 MB/s (0.8%)
- C fill (shuffle within 64 byte blocks)               :  10837.8 MB/s (0.9%)
- ---
- standard memcpy                                      :   9893.9 MB/s (0.5%)
- standard memset                                      :  19776.4 MB/s (0.6%)
- ---
- MOVSB copy                                           :   9697.2 MB/s (0.7%)
- MOVSD copy                                           :   9741.1 MB/s (0.8%)
- SSE2 copy                                            :   6669.9 MB/s (0.7%)
- SSE2 nontemporal copy                                :   9742.9 MB/s (1.3%)
- SSE2 copy prefetched (32 bytes step)                 :   5528.8 MB/s (1.7%)
- SSE2 copy prefetched (64 bytes step)                 :   5312.6 MB/s (0.4%)
- SSE2 nontemporal copy prefetched (32 bytes step)     :   6960.9 MB/s (0.6%)
- SSE2 nontemporal copy prefetched (64 bytes step)     :   6788.5 MB/s (0.4%)
- SSE2 2-pass copy                                     :   5852.6 MB/s (0.2%)
- SSE2 2-pass copy prefetched (32 bytes step)          :   4945.0 MB/s
- SSE2 2-pass copy prefetched (64 bytes step)          :   4974.0 MB/s
- SSE2 2-pass nontemporal copy                         :   3765.1 MB/s (0.4%)
- SSE2 fill                                            :   9908.3 MB/s (5.4%)
- SSE2 nontemporal fill                                :  18289.6 MB/s
-
-==========================================================================
-== Memory latency test                                                  ==
-==                                                                      ==
-== Average time is measured for random memory accesses in the buffers   ==
-== of different sizes. The larger is the buffer, the more significant   ==
-== are relative contributions of TLB, L1/L2 cache misses and SDRAM      ==
-== accesses. For extremely large buffer sizes we are expecting to see   ==
-== page table walk with several requests to SDRAM for almost every      ==
-== memory access (though 64MiB is not nearly large enough to experience ==
-== this effect to its fullest).                                         ==
-==                                                                      ==
-== Note 1: All the numbers are representing extra time, which needs to  ==
-==         be added to L1 cache latency. The cycle timings for L1 cache ==
-==         latency can be usually found in the processor documentation. ==
-== Note 2: Dual random read means that we are simultaneously performing ==
-==         two independent memory accesses at a time. In the case if    ==
-==         the memory subsystem can't handle multiple outstanding       ==
-==         requests, dual random read has the same timings as two       ==
-==         single reads performed one after another.                    ==
-==========================================================================
-
-block size : single random read / dual random read, [MADV_NOHUGEPAGE]
-      1024 :    0.0 ns          /     0.1 ns 
-      2048 :    0.0 ns          /     0.1 ns 
-      4096 :    0.0 ns          /     0.1 ns 
-      8192 :    0.0 ns          /     0.0 ns 
-     16384 :    0.0 ns          /     0.1 ns 
-     32768 :    0.0 ns          /     0.1 ns 
-     65536 :    0.5 ns          /     0.9 ns 
-    131072 :    1.2 ns          /     1.6 ns 
-    262144 :    1.6 ns          /     1.9 ns 
-    524288 :    2.5 ns          /     3.0 ns 
-   1048576 :    3.1 ns          /     3.4 ns 
-   2097152 :    6.2 ns          /     8.2 ns 
-   4194304 :    9.0 ns          /    10.8 ns 
-   8388608 :   12.1 ns          /    14.1 ns 
-  16777216 :   27.5 ns          /    40.4 ns 
-  33554432 :   51.0 ns          /    69.0 ns 
-  67108864 :   63.7 ns          /    78.9 ns 
-
-block size : single random read / dual random read, [MADV_HUGEPAGE]
-      1024 :    0.0 ns          /     0.1 ns 
-      2048 :    0.0 ns          /     0.1 ns 
-      4096 :    0.0 ns          /     0.1 ns 
-      8192 :    0.0 ns          /     0.0 ns 
-     16384 :    0.0 ns          /     0.1 ns 
-     32768 :    0.0 ns          /     0.1 ns 
-     65536 :    0.5 ns          /     1.0 ns 
-    131072 :    1.2 ns          /     1.6 ns 
-    262144 :    1.6 ns          /     2.0 ns 
-    524288 :    1.8 ns          /     2.1 ns 
-   1048576 :    1.9 ns          /     1.9 ns 
-   2097152 :    4.9 ns          /     6.9 ns 
-   4194304 :    7.7 ns          /     9.5 ns 
-   8388608 :    8.7 ns          /    10.2 ns 
-  16777216 :   23.4 ns          /    35.0 ns 
-  33554432 :   46.7 ns          /    64.7 ns 
-  67108864 :   59.2 ns          /    74.5 ns 
-
-##########################################################################
-
-Executing ramlat on cpu0, results in ns:
-
-       size:  1x32  2x32  1x64  2x64 1xPTR 2xPTR 4xPTR 8xPTR
-         4k: 1.181 1.181 1.384 1.589 1.143 1.067 1.070 1.110 
-         8k: 1.081 1.080 1.267 1.469 1.071 1.067 1.072 1.110 
-        16k: 1.081 1.080 1.268 1.464 1.067 1.067 1.071 1.109 
-        32k: 1.081 1.080 1.270 1.473 1.067 1.067 1.081 1.113 
-        64k: 2.998 2.995 3.182 3.383 2.982 2.987 3.036 3.562 
-       128k: 3.276 3.277 3.488 3.683 2.992 2.987 3.035 3.590 
-       256k: 3.011 3.000 3.187 3.387 2.987 2.987 3.062 3.602 
-       512k: 4.523 4.502 4.679 4.891 4.480 4.480 4.532 4.944 
-      1024k: 5.902 5.743 6.097 6.124 5.667 5.448 5.759 6.726 
-      2048k: 11.88 12.06 11.84 12.17 11.84 12.34 13.19 14.90 
-      4096k: 12.85 12.89 12.72 13.19 12.78 13.15 14.30 17.43 
-      8192k: 16.85 14.83 15.16 15.27 14.86 14.89 15.81 18.76 
-     16384k: 42.35 38.43 41.21 39.81 43.09 42.60 46.77 54.01 
-
-##########################################################################
-
-Executing benchmark twice on cluster 0
-
-OpenSSL 1.1.1f, built on 31 Mar 2020
-type             16 bytes     64 bytes    256 bytes   1024 bytes   8192 bytes  16384 bytes
-aes-128-cbc    1067751.63k  1668484.65k  1953877.25k  2018499.58k  1815587.50k  2034013.53k
-aes-128-cbc    1009441.90k  1768923.52k  1952441.69k  1802215.08k  2030389.93k  2030807.72k
-aes-192-cbc     909793.03k  1576942.51k  1583106.30k  1629583.36k  1716461.57k  1533444.10k
-aes-192-cbc    1017256.41k  1614196.86k  1531869.70k  1738807.30k  1644101.63k  1659071.15k
-aes-256-cbc     932419.00k  1245460.78k  1449495.47k  1479657.47k  1329119.23k  1488846.85k
-aes-256-cbc     916362.41k  1347310.63k  1481127.17k  1340278.10k  1514960.21k  1514345.81k
-
-##########################################################################
-
-Executing benchmark single-threaded on cpu0
-
-7-Zip (a) [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
-p7zip Version 16.02 (locale=C,Utf16=off,HugeFiles=on,64 bits,8 CPUs 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1),ASM,AES-NI)
-
-11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1)
-CPU Freq: - - - - - - - - -
-
-RAM size:    7695 MB,  # CPU hardware threads:   8
-RAM usage:    435 MB,  # Benchmark threads:      1
-
-                       Compressing  |                  Decompressing
-Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
-         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
-
-22:       5078   100   4941   4940  |      53819   100   4596   4595
-23:       5029   100   5125   5124  |      49198   100   4259   4259
-24:       4674   100   5026   5026  |      48162   100   4229   4228
-25:       4265   100   4870   4870  |      51415   100   4577   4576
-----------------------------------  | ------------------------------
-Avr:             100   4991   4990  |              100   4415   4415
-Tot:             100   4703   4702
-
-##########################################################################
-
-Executing benchmark 3 times multi-threaded on CPUs 0-7
-
-7-Zip (a) [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
-p7zip Version 16.02 (locale=C,Utf16=off,HugeFiles=on,64 bits,8 CPUs 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1),ASM,AES-NI)
-
-11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1)
-CPU Freq: 64000000 - - - - - - - -
-
-RAM size:    7695 MB,  # CPU hardware threads:   8
-RAM usage:   1765 MB,  # Benchmark threads:      8
-
-                       Compressing  |                  Decompressing
-Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
-         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
-
-22:      23823   682   3397  23175  |     235635   797   2521  20099
-23:      21116   694   3099  21515  |     232997   798   2527  20163
-24:      22220   740   3227  23892  |     212746   797   2342  18672
-25:      19755   754   2993  22556  |     204061   798   2276  18161
-----------------------------------  | ------------------------------
-Avr:             718   3179  22784  |              798   2416  19274
-Tot:             758   2798  21029
-
-7-Zip (a) [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
-p7zip Version 16.02 (locale=C,Utf16=off,HugeFiles=on,64 bits,8 CPUs 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1),ASM,AES-NI)
-
-11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1)
-CPU Freq: - - - - - - - - 2048000000
-
-RAM size:    7695 MB,  # CPU hardware threads:   8
-RAM usage:   1765 MB,  # Benchmark threads:      8
-
-                       Compressing  |                  Decompressing
-Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
-         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
-
-22:      21512   681   3072  20927  |     213255   796   2286  18190
-23:      22029   748   3000  22446  |     210363   797   2285  18204
-24:      20923   748   3008  22497  |     208117   798   2288  18266
-25:      20153   753   3056  23011  |     204567   797   2284  18206
-----------------------------------  | ------------------------------
-Avr:             733   3034  22220  |              797   2286  18216
-Tot:             765   2660  20218
-
-7-Zip (a) [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
-p7zip Version 16.02 (locale=C,Utf16=off,HugeFiles=on,64 bits,8 CPUs 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1),ASM,AES-NI)
-
-11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1)
-CPU Freq: - - - - - - - - -
-
-RAM size:    7695 MB,  # CPU hardware threads:   8
-RAM usage:   1765 MB,  # Benchmark threads:      8
-
-                       Compressing  |                  Decompressing
-Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
-         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
-
-22:      21527   696   3011  20942  |     212475   795   2279  18123
-23:      21270   731   2966  21672  |     209886   797   2279  18163
-24:      20724   743   2999  22284  |     205801   793   2277  18063
-25:      19838   743   3049  22651  |     203586   796   2276  18118
-----------------------------------  | ------------------------------
-Avr:             728   3006  21887  |              795   2278  18117
-Tot:             762   2642  20002
-
-Compression: 22784,22220,21887
-Decompression: 19274,18216,18117
-Total: 21029,20218,20002
-
-##########################################################################
-
-** cpuminer-multi 1.3.7 by tpruvot@github **
-BTC donation address: 1FhDPLPpw18X4srecguG3MxJYe4a1JsZnd (tpruvot)
-
-[2023-02-07 08:33:40] 8 miner threads started, using 'scrypt' algorithm.
-[2023-02-07 08:33:40] CPU #0: 11.70 kH/s
-[2023-02-07 08:33:40] CPU #1: 11.01 kH/s
-[2023-02-07 08:33:40] CPU #2: 11.13 kH/s
-[2023-02-07 08:33:40] CPU #3: 10.83 kH/s
-[2023-02-07 08:33:40] CPU #5: 10.60 kH/s
-[2023-02-07 08:33:40] CPU #6: 10.44 kH/s
-[2023-02-07 08:33:40] CPU #7: 10.54 kH/s
-[2023-02-07 08:33:40] CPU #4: 8.99 kH/s
-[2023-02-07 08:33:45] Total: 82.07 kH/s
-[2023-02-07 08:33:46] CPU #3: 8.93 kH/s
-[2023-02-07 08:33:46] CPU #1: 8.93 kH/s
-[2023-02-07 08:33:46] CPU #2: 8.96 kH/s
-[2023-02-07 08:33:46] CPU #0: 8.91 kH/s
-[2023-02-07 08:33:50] CPU #4: 8.91 kH/s
-[2023-02-07 08:33:50] CPU #6: 8.94 kH/s
-[2023-02-07 08:33:50] CPU #7: 8.91 kH/s
-[2023-02-07 08:33:50] Total: 71.44 kH/s
-[2023-02-07 08:33:50] CPU #5: 8.97 kH/s
-[2023-02-07 08:33:55] CPU #3: 8.92 kH/s
-[2023-02-07 08:33:55] CPU #1: 8.92 kH/s
-[2023-02-07 08:33:55] CPU #2: 8.94 kH/s
-[2023-02-07 08:33:55] CPU #0: 8.92 kH/s
-[2023-02-07 08:33:55] Total: 71.44 kH/s
-[2023-02-07 08:34:00] CPU #4: 8.92 kH/s
-[2023-02-07 08:34:00] CPU #6: 8.94 kH/s
-[2023-02-07 08:34:00] CPU #7: 8.92 kH/s
-[2023-02-07 08:34:00] Total: 71.45 kH/s
-[2023-02-07 08:34:00] CPU #5: 8.97 kH/s
-[2023-02-07 08:34:05] CPU #3: 8.93 kH/s
-[2023-02-07 08:34:05] CPU #1: 8.94 kH/s
-[2023-02-07 08:34:05] CPU #2: 8.95 kH/s
-[2023-02-07 08:34:05] CPU #0: 8.93 kH/s
-[2023-02-07 08:34:05] Total: 71.53 kH/s
-[2023-02-07 08:34:10] CPU #4: 8.91 kH/s
-[2023-02-07 08:34:10] CPU #6: 8.94 kH/s
-[2023-02-07 08:34:10] CPU #7: 8.92 kH/s
-[2023-02-07 08:34:10] Total: 71.43 kH/s
-[2023-02-07 08:34:10] CPU #5: 8.96 kH/s
-[2023-02-07 08:34:15] CPU #3: 8.92 kH/s
-[2023-02-07 08:34:15] CPU #1: 8.93 kH/s
-[2023-02-07 08:34:15] CPU #2: 8.94 kH/s
-[2023-02-07 08:34:15] CPU #0: 8.91 kH/s
-[2023-02-07 08:34:15] Total: 71.43 kH/s
-[2023-02-07 08:34:20] CPU #4: 8.91 kH/s
-[2023-02-07 08:34:20] CPU #6: 8.93 kH/s
-[2023-02-07 08:34:20] CPU #7: 8.91 kH/s
-[2023-02-07 08:34:20] Total: 71.38 kH/s
-[2023-02-07 08:34:20] CPU #5: 8.97 kH/s
-[2023-02-07 08:34:25] CPU #3: 8.91 kH/s
-[2023-02-07 08:34:25] CPU #1: 8.93 kH/s
-[2023-02-07 08:34:25] CPU #2: 8.91 kH/s
-[2023-02-07 08:34:25] CPU #0: 8.92 kH/s
-[2023-02-07 08:34:25] Total: 71.43 kH/s
-[2023-02-07 08:34:30] CPU #4: 8.91 kH/s
-[2023-02-07 08:34:30] CPU #6: 8.93 kH/s
-[2023-02-07 08:34:30] CPU #7: 8.92 kH/s
-[2023-02-07 08:34:30] Total: 71.41 kH/s
-[2023-02-07 08:34:30] CPU #5: 8.96 kH/s
-[2023-02-07 08:34:35] CPU #3: 8.91 kH/s
-[2023-02-07 08:34:35] CPU #1: 8.93 kH/s
-[2023-02-07 08:34:35] CPU #2: 8.92 kH/s
-[2023-02-07 08:34:35] CPU #0: 8.91 kH/s
-[2023-02-07 08:34:35] Total: 71.34 kH/s
-[2023-02-07 08:34:36] CPU #5: 8.96 kH/s
-[2023-02-07 08:34:40] CPU #4: 8.90 kH/s
-[2023-02-07 08:34:40] CPU #6: 8.92 kH/s
-[2023-02-07 08:34:41] CPU #7: 8.90 kH/s
-[2023-02-07 08:34:41] Total: 71.33 kH/s
-[2023-02-07 08:34:45] Total: 71.34 kH/s
-[2023-02-07 08:34:45] CPU #5: 8.96 kH/s
-[2023-02-07 08:34:45] CPU #3: 8.91 kH/s
-[2023-02-07 08:34:45] CPU #1: 8.92 kH/s
-[2023-02-07 08:34:45] CPU #2: 8.92 kH/s
-[2023-02-07 08:34:45] CPU #0: 8.91 kH/s
-[2023-02-07 08:34:50] CPU #7: 8.90 kH/s
-[2023-02-07 08:34:50] Total: 71.33 kH/s
-[2023-02-07 08:34:50] CPU #4: 8.90 kH/s
-[2023-02-07 08:34:50] CPU #6: 8.91 kH/s
-[2023-02-07 08:34:55] Total: 71.28 kH/s
-[2023-02-07 08:34:55] CPU #5: 8.94 kH/s
-[2023-02-07 08:34:55] CPU #3: 8.90 kH/s
-[2023-02-07 08:34:55] CPU #1: 8.91 kH/s
-[2023-02-07 08:34:55] CPU #2: 8.92 kH/s
-[2023-02-07 08:34:55] CPU #0: 8.90 kH/s
-[2023-02-07 08:35:00] CPU #7: 8.90 kH/s
-[2023-02-07 08:35:00] Total: 71.29 kH/s
-[2023-02-07 08:35:00] CPU #4: 8.89 kH/s
-[2023-02-07 08:35:00] CPU #6: 8.92 kH/s
-[2023-02-07 08:35:05] Total: 71.27 kH/s
-[2023-02-07 08:35:05] CPU #5: 8.95 kH/s
-[2023-02-07 08:35:05] CPU #3: 8.90 kH/s
-[2023-02-07 08:35:05] CPU #1: 8.89 kH/s
-[2023-02-07 08:35:05] CPU #2: 8.92 kH/s
-[2023-02-07 08:35:05] CPU #0: 8.87 kH/s
-[2023-02-07 08:35:10] CPU #7: 8.89 kH/s
-[2023-02-07 08:35:10] Total: 71.23 kH/s
-[2023-02-07 08:35:10] CPU #4: 8.89 kH/s
-[2023-02-07 08:35:10] CPU #6: 8.91 kH/s
-[2023-02-07 08:35:15] Total: 71.24 kH/s
-[2023-02-07 08:35:15] CPU #5: 8.94 kH/s
-[2023-02-07 08:35:15] CPU #3: 8.89 kH/s
-[2023-02-07 08:35:15] CPU #1: 8.90 kH/s
-[2023-02-07 08:35:15] CPU #2: 8.91 kH/s
-[2023-02-07 08:35:15] CPU #0: 8.89 kH/s
-[2023-02-07 08:35:20] CPU #7: 8.89 kH/s
-[2023-02-07 08:35:20] Total: 71.22 kH/s
-[2023-02-07 08:35:20] CPU #4: 8.89 kH/s
-[2023-02-07 08:35:20] CPU #6: 8.91 kH/s
-[2023-02-07 08:35:25] CPU #5: 8.95 kH/s
-[2023-02-07 08:35:25] Total: 71.22 kH/s
-[2023-02-07 08:35:25] CPU #3: 8.89 kH/s
-[2023-02-07 08:35:25] CPU #1: 8.90 kH/s
-[2023-02-07 08:35:25] CPU #2: 8.92 kH/s
-[2023-02-07 08:35:25] CPU #0: 8.90 kH/s
-[2023-02-07 08:35:30] CPU #7: 8.89 kH/s
-[2023-02-07 08:35:30] Total: 71.26 kH/s
-[2023-02-07 08:35:30] CPU #4: 8.89 kH/s
-[2023-02-07 08:35:30] CPU #6: 8.91 kH/s
-[2023-02-07 08:35:35] Total: 71.25 kH/s
-[2023-02-07 08:35:35] CPU #5: 8.93 kH/s
-[2023-02-07 08:35:35] CPU #3: 8.89 kH/s
-[2023-02-07 08:35:35] CPU #1: 8.90 kH/s
-[2023-02-07 08:35:35] CPU #2: 8.91 kH/s
-[2023-02-07 08:35:35] CPU #0: 8.89 kH/s
-[2023-02-07 08:35:40] CPU #7: 8.88 kH/s
-[2023-02-07 08:35:40] Total: 71.18 kH/s
-[2023-02-07 08:35:40] CPU #4: 8.88 kH/s
-[2023-02-07 08:35:40] CPU #6: 8.90 kH/s
-[2023-02-07 08:35:45] Total: 71.14 kH/s
-[2023-02-07 08:35:45] CPU #5: 8.92 kH/s
-[2023-02-07 08:35:45] CPU #3: 8.87 kH/s
-[2023-02-07 08:35:45] CPU #1: 8.89 kH/s
-[2023-02-07 08:35:45] CPU #2: 8.89 kH/s
-[2023-02-07 08:35:45] CPU #0: 8.85 kH/s
-[2023-02-07 08:35:50] CPU #7: 8.89 kH/s
-[2023-02-07 08:35:50] Total: 71.08 kH/s
-[2023-02-07 08:35:50] CPU #4: 8.88 kH/s
-[2023-02-07 08:35:50] CPU #6: 8.91 kH/s
-[2023-02-07 08:35:55] Total: 71.19 kH/s
-[2023-02-07 08:35:55] CPU #5: 8.93 kH/s
-[2023-02-07 08:35:55] CPU #3: 8.89 kH/s
-[2023-02-07 08:35:55] CPU #1: 8.90 kH/s
-[2023-02-07 08:35:55] CPU #2: 8.91 kH/s
-[2023-02-07 08:35:55] CPU #0: 8.90 kH/s
-[2023-02-07 08:36:00] CPU #7: 8.86 kH/s
-[2023-02-07 08:36:00] Total: 71.19 kH/s
-[2023-02-07 08:36:00] CPU #4: 8.86 kH/s
-[2023-02-07 08:36:00] CPU #6: 8.88 kH/s
-[2023-02-07 08:36:05] Total: 71.03 kH/s
-[2023-02-07 08:36:05] CPU #5: 8.92 kH/s
-[2023-02-07 08:36:05] CPU #3: 8.87 kH/s
-[2023-02-07 08:36:05] CPU #1: 8.89 kH/s
-[2023-02-07 08:36:05] CPU #2: 8.89 kH/s
-[2023-02-07 08:36:05] CPU #0: 8.86 kH/s
-[2023-02-07 08:36:10] CPU #7: 8.86 kH/s
-[2023-02-07 08:36:10] Total: 71.04 kH/s
-[2023-02-07 08:36:10] CPU #4: 8.85 kH/s
-[2023-02-07 08:36:10] CPU #6: 8.87 kH/s
-[2023-02-07 08:36:15] Total: 70.93 kH/s
-[2023-02-07 08:36:15] CPU #5: 8.89 kH/s
-[2023-02-07 08:36:15] CPU #3: 8.84 kH/s
-[2023-02-07 08:36:15] CPU #1: 8.85 kH/s
-[2023-02-07 08:36:15] CPU #2: 8.86 kH/s
-[2023-02-07 08:36:15] CPU #0: 8.84 kH/s
-[2023-02-07 08:36:20] CPU #7: 8.87 kH/s
-[2023-02-07 08:36:20] Total: 70.85 kH/s
-[2023-02-07 08:36:20] CPU #4: 8.86 kH/s
-[2023-02-07 08:36:20] CPU #6: 8.89 kH/s
-[2023-02-07 08:36:25] Total: 71.05 kH/s
-[2023-02-07 08:36:25] CPU #5: 8.92 kH/s
-[2023-02-07 08:36:25] CPU #3: 8.87 kH/s
-[2023-02-07 08:36:25] CPU #1: 8.89 kH/s
-[2023-02-07 08:36:25] CPU #2: 8.89 kH/s
-[2023-02-07 08:36:25] CPU #0: 8.84 kH/s
-[2023-02-07 08:36:30] CPU #7: 8.88 kH/s
-[2023-02-07 08:36:30] Total: 71.07 kH/s
-[2023-02-07 08:36:30] CPU #4: 8.87 kH/s
-[2023-02-07 08:36:30] CPU #6: 8.89 kH/s
-[2023-02-07 08:36:35] Total: 71.05 kH/s
-[2023-02-07 08:36:35] CPU #5: 8.89 kH/s
-[2023-02-07 08:36:35] CPU #3: 8.83 kH/s
-[2023-02-07 08:36:35] CPU #1: 8.84 kH/s
-[2023-02-07 08:36:35] CPU #2: 8.85 kH/s
-[2023-02-07 08:36:35] CPU #0: 8.83 kH/s
-[2023-02-07 08:36:40] CPU #7: 8.83 kH/s
-[2023-02-07 08:36:40] Total: 70.76 kH/s
-[2023-02-07 08:36:40] CPU #4: 8.83 kH/s
-[2023-02-07 08:36:40] CPU #6: 8.85 kH/s
-[2023-02-07 08:36:45] Total: 70.79 kH/s
-[2023-02-07 08:36:45] CPU #5: 8.89 kH/s
-[2023-02-07 08:36:45] CPU #3: 8.84 kH/s
-[2023-02-07 08:36:45] CPU #1: 8.85 kH/s
-[2023-02-07 08:36:45] CPU #2: 8.85 kH/s
-[2023-02-07 08:36:45] CPU #0: 8.83 kH/s
-[2023-02-07 08:36:46] CPU #6: 8.85 kH/s
-[2023-02-07 08:36:50] CPU #7: 8.81 kH/s
-[2023-02-07 08:36:50] Total: 70.72 kH/s
-[2023-02-07 08:36:50] CPU #4: 8.81 kH/s
-[2023-02-07 08:36:54] CPU #6: 8.86 kH/s
-[2023-02-07 08:36:55] Total: 70.65 kH/s
-[2023-02-07 08:36:55] CPU #5: 8.89 kH/s
-[2023-02-07 08:36:55] CPU #3: 8.84 kH/s
-[2023-02-07 08:36:55] CPU #1: 8.85 kH/s
-[2023-02-07 08:36:55] CPU #2: 8.86 kH/s
-[2023-02-07 08:36:55] CPU #0: 8.85 kH/s
-[2023-02-07 08:37:00] CPU #6: 8.84 kH/s
-[2023-02-07 08:37:00] CPU #7: 8.83 kH/s
-[2023-02-07 08:37:00] Total: 70.79 kH/s
-[2023-02-07 08:37:00] CPU #4: 8.82 kH/s
-[2023-02-07 08:37:05] Total: 70.69 kH/s
-[2023-02-07 08:37:05] CPU #5: 8.88 kH/s
-[2023-02-07 08:37:05] CPU #3: 8.84 kH/s
-[2023-02-07 08:37:05] CPU #1: 8.85 kH/s
-[2023-02-07 08:37:05] CPU #2: 8.86 kH/s
-[2023-02-07 08:37:05] CPU #0: 8.81 kH/s
-[2023-02-07 08:37:10] CPU #6: 8.85 kH/s
-[2023-02-07 08:37:10] CPU #7: 8.82 kH/s
-[2023-02-07 08:37:10] Total: 70.73 kH/s
-[2023-02-07 08:37:10] CPU #4: 8.81 kH/s
-[2023-02-07 08:37:15] Total: 70.65 kH/s
-[2023-02-07 08:37:15] CPU #5: 8.85 kH/s
-[2023-02-07 08:37:15] CPU #3: 8.81 kH/s
-[2023-02-07 08:37:15] CPU #1: 8.82 kH/s
-[2023-02-07 08:37:15] CPU #2: 8.83 kH/s
-[2023-02-07 08:37:15] CPU #0: 8.81 kH/s
-[2023-02-07 08:37:20] CPU #6: 8.86 kH/s
-[2023-02-07 08:37:20] CPU #7: 8.84 kH/s
-[2023-02-07 08:37:20] Total: 70.63 kH/s
-[2023-02-07 08:37:20] CPU #4: 8.82 kH/s
-[2023-02-07 08:37:25] Total: 70.77 kH/s
-[2023-02-07 08:37:25] CPU #5: 8.87 kH/s
-[2023-02-07 08:37:25] CPU #3: 8.84 kH/s
-[2023-02-07 08:37:25] CPU #1: 8.85 kH/s
-[2023-02-07 08:37:25] CPU #2: 8.86 kH/s
-[2023-02-07 08:37:25] CPU #0: 8.83 kH/s
-[2023-02-07 08:37:30] CPU #6: 8.84 kH/s
-[2023-02-07 08:37:30] CPU #7: 8.82 kH/s
-[2023-02-07 08:37:30] Total: 70.74 kH/s
-[2023-02-07 08:37:30] CPU #4: 8.81 kH/s
-[2023-02-07 08:37:35] Total: 70.66 kH/s
-[2023-02-07 08:37:35] CPU #5: 8.86 kH/s
-[2023-02-07 08:37:35] CPU #3: 8.83 kH/s
-[2023-02-07 08:37:35] CPU #1: 8.83 kH/s
-[2023-02-07 08:37:35] CPU #2: 8.85 kH/s
-[2023-02-07 08:37:35] CPU #0: 8.83 kH/s
-[2023-02-07 08:37:40] CPU #6: 8.84 kH/s
-[2023-02-07 08:37:40] CPU #7: 8.82 kH/s
-[2023-02-07 08:37:40] Total: 70.68 kH/s
-[2023-02-07 08:37:40] CPU #4: 8.81 kH/s
-[2023-02-07 08:37:45] Total: 70.63 kH/s
-[2023-02-07 08:37:45] CPU #5: 8.86 kH/s
-[2023-02-07 08:37:45] CPU #3: 8.82 kH/s
-[2023-02-07 08:37:45] CPU #1: 8.82 kH/s
-[2023-02-07 08:37:45] CPU #2: 8.84 kH/s
-[2023-02-07 08:37:45] CPU #0: 8.81 kH/s
-[2023-02-07 08:37:50] CPU #6: 8.83 kH/s
-[2023-02-07 08:37:50] CPU #7: 8.82 kH/s
-[2023-02-07 08:37:50] Total: 70.61 kH/s
-[2023-02-07 08:37:50] CPU #4: 8.82 kH/s
-[2023-02-07 08:37:55] Total: 70.68 kH/s
-[2023-02-07 08:37:55] CPU #5: 8.86 kH/s
-[2023-02-07 08:37:55] CPU #3: 8.81 kH/s
-[2023-02-07 08:37:55] CPU #1: 8.83 kH/s
-[2023-02-07 08:37:55] CPU #2: 8.83 kH/s
-[2023-02-07 08:37:55] CPU #0: 8.80 kH/s
-[2023-02-07 08:38:00] CPU #6: 8.82 kH/s
-[2023-02-07 08:38:00] CPU #7: 8.80 kH/s
-[2023-02-07 08:38:00] Total: 70.54 kH/s
-[2023-02-07 08:38:00] CPU #4: 8.79 kH/s
-[2023-02-07 08:38:05] CPU #5: 8.85 kH/s
-[2023-02-07 08:38:05] Total: 70.47 kH/s
-[2023-02-07 08:38:05] CPU #3: 8.80 kH/s
-[2023-02-07 08:38:05] CPU #1: 8.80 kH/s
-[2023-02-07 08:38:05] CPU #2: 8.82 kH/s
-[2023-02-07 08:38:05] CPU #0: 8.79 kH/s
-[2023-02-07 08:38:10] CPU #6: 8.84 kH/s
-[2023-02-07 08:38:10] CPU #7: 8.81 kH/s
-[2023-02-07 08:38:10] Total: 70.50 kH/s
-[2023-02-07 08:38:10] CPU #4: 8.80 kH/s
-[2023-02-07 08:38:15] Total: 70.54 kH/s
-[2023-02-07 08:38:15] CPU #5: 8.84 kH/s
-[2023-02-07 08:38:15] CPU #3: 8.80 kH/s
-[2023-02-07 08:38:15] CPU #1: 8.81 kH/s
-[2023-02-07 08:38:15] CPU #2: 8.81 kH/s
-[2023-02-07 08:38:15] CPU #0: 8.78 kH/s
-[2023-02-07 08:38:20] CPU #6: 8.79 kH/s
-[2023-02-07 08:38:20] CPU #7: 8.77 kH/s
-[2023-02-07 08:38:20] Total: 70.39 kH/s
-[2023-02-07 08:38:20] CPU #4: 8.75 kH/s
-[2023-02-07 08:38:25] Total: 70.24 kH/s
-[2023-02-07 08:38:25] CPU #5: 8.83 kH/s
-[2023-02-07 08:38:25] CPU #3: 8.79 kH/s
-[2023-02-07 08:38:25] CPU #1: 8.80 kH/s
-[2023-02-07 08:38:25] CPU #2: 8.82 kH/s
-[2023-02-07 08:38:25] CPU #0: 8.78 kH/s
-[2023-02-07 08:38:30] CPU #6: 8.80 kH/s
-[2023-02-07 08:38:30] CPU #7: 8.79 kH/s
-[2023-02-07 08:38:30] Total: 70.39 kH/s
-[2023-02-07 08:38:30] CPU #4: 8.77 kH/s
-[2023-02-07 08:38:35] Total: 70.29 kH/s
-[2023-02-07 08:38:35] CPU #5: 8.82 kH/s
-[2023-02-07 08:38:35] CPU #3: 8.77 kH/s
-[2023-02-07 08:38:35] CPU #1: 8.78 kH/s
-[2023-02-07 08:38:35] CPU #2: 8.79 kH/s
-[2023-02-07 08:38:35] CPU #0: 8.76 kH/s
-
-Total Scores: 82.07,71.53,71.45,71.44,71.43,71.41,71.38,71.34,71.33,71.29,71.28,71.27,71.26,71.25,71.24,71.23,71.22,71.19,71.18,71.14,71.08,71.07,71.05,71.04,71.03,70.93,70.85,70.79,70.77,70.76,70.74,70.73,70.72,70.69,70.68,70.66,70.65,70.63,70.61,70.54,70.50,70.47,70.39,70.29,70.24
-
-##########################################################################
-
-Testing maximum cpufreq again, still under full load. System health now:
-
-Time        CPU    load %cpu %sys %usr %nice %io %irq   Temp
-08:38:26: 2600MHz  8.02 100%   0%  99%   0%   0%   0%  92.0°C
-
-Checking cpufreq OPP:
-
-Cpufreq OPP: 4700    Measured: 4545 (4626.429/4509.582/4501.231)     (-3.3%)
-
-##########################################################################
-
-Hardware sensors:
-
-acpitz-acpi-0
-temp1:        +27.8 C  (crit = +119.0 C)
-
-coretemp-isa-0000
-Package id 0:  +99.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 0:        +99.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 1:        +65.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 2:        +77.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 3:        +63.0 C  (high = +100.0 C, crit = +100.0 C)
-
-##########################################################################
-
-Thermal source: /sys/devices/virtual/thermal/thermal_zone1/ (x86_pkg_temp)
-
-System health while running tinymembench:
-
-Time        CPU    load %cpu %sys %usr %nice %io %irq   Temp
-08:23:49: 4347MHz  0.45   0%   0%   0%   0%   0%   0%  79.0°C
-08:24:29: 4299MHz  0.72  12%   0%  12%   0%   0%   0%  88.0°C
-08:25:09: 4627MHz  0.86  12%   0%  12%   0%   0%   0%  97.0°C
-08:25:49: 4290MHz  0.93  12%   0%  12%   0%   0%   0%  86.0°C
-08:26:29: 4557MHz  0.96  12%   0%  12%   0%   0%   0%  98.0°C
-08:27:09: 4628MHz  0.98  12%   0%  12%   0%   0%   0%  97.0°C
-08:27:49: 4697MHz  0.99  12%   0%  12%   0%   0%   0%  91.0°C
-08:28:29: 4676MHz  1.00  12%   0%  12%   0%   0%   0%  95.0°C
-
-System health while running ramlat:
-
-Time        CPU    load %cpu %sys %usr %nice %io %irq   Temp
-08:28:51: 4106MHz  1.00   0%   0%   0%   0%   0%   0%  100.0°C
-08:28:54: 4659MHz  1.00  12%   0%  12%   0%   0%   0%  91.0°C
-08:28:57: 4683MHz  1.00  12%   0%  12%   0%   0%   0%  96.0°C
-08:29:00: 4297MHz  1.00  12%   0%  12%   0%   0%   0%  77.0°C
-08:29:03: 4678MHz  1.00  12%   0%  12%   0%   0%   0%  91.0°C
-08:29:06: 4467MHz  1.00  13%   0%  12%   0%   0%   0%  98.0°C
-08:29:09: 4612MHz  1.00  12%   0%  12%   0%   0%   0%  94.0°C
-08:29:12: 4666MHz  1.00  12%   0%  12%   0%   0%   0%  91.0°C
-
-System health while running OpenSSL benchmark:
-
-Time        CPU    load %cpu %sys %usr %nice %io %irq   Temp
-08:29:13: 3556MHz  1.00   0%   0%   0%   0%   0%   0%  100.0°C
-08:29:29: 1056MHz  1.00  12%   0%  12%   0%   0%   0%  100.0°C
-08:29:45:  660MHz  1.00  12%   0%  12%   0%   0%   0%  100.0°C
-08:30:01: 1441MHz  1.00  12%   0%  12%   0%   0%   0%  100.0°C
-08:30:17: 4098MHz  1.00  12%   0%  12%   0%   0%   0%  100.0°C
-08:30:33:  988MHz  1.00  12%   0%  12%   0%   0%   0%  100.0°C
-08:30:49: 4167MHz  1.00  12%   0%  12%   0%   0%   0%  100.0°C
-
-System health while running 7-zip single core benchmark:
-
-Time        CPU    load %cpu %sys %usr %nice %io %irq   Temp
-08:31:01: 4172MHz  1.00   0%   0%   0%   0%   0%   0%  100.0°C
-08:31:06: 4132MHz  1.00  12%   0%  12%   0%   0%   0%  100.0°C
-08:31:11: 4172MHz  1.00  12%   0%  12%   0%   0%   0%  99.0°C
-08:31:16: 4224MHz  1.00  12%   0%  12%   0%   0%   0%  100.0°C
-08:31:21: 4218MHz  1.00  12%   0%  12%   0%   0%   0%  99.0°C
-08:31:26: 2800MHz  1.00  12%   0%  12%   0%   0%   0%  66.0°C
-08:31:31: 4166MHz  1.00  12%   0%  12%   0%   0%   0%  99.0°C
-
-System health while running 7-zip multi core benchmark:
-
-Time        CPU    load %cpu %sys %usr %nice %io %irq   Temp
-08:31:32: 3898MHz  1.00   0%   0%   0%   0%   0%   0%  100.0°C
-08:31:42: 3158MHz  1.64  94%   0%  93%   0%   0%   0%  100.0°C
-08:31:52: 2800MHz  2.62  95%   0%  94%   0%   0%   0%  100.0°C
-08:32:02: 2800MHz  3.45  91%   0%  91%   0%   0%   0%  85.0°C
-08:32:13: 2889MHz  4.15  98%   0%  97%   0%   0%   0%  86.0°C
-08:32:23: 2900MHz  4.74  91%   0%  91%   0%   0%   0%  88.0°C
-08:32:33: 3339MHz  5.24  93%   0%  93%   0%   0%   0%  94.0°C
-08:32:43: 4057MHz  5.74  95%   0%  94%   0%   0%   0%  100.0°C
-08:32:54: 2900MHz  6.01  94%   1%  93%   0%   0%   0%  87.0°C
-08:33:04: 2866MHz  6.32  96%   0%  95%   0%   0%   0%  88.0°C
-08:33:15: 2875MHz  6.76  97%   0%  96%   0%   0%   0%  88.0°C
-08:33:26: 2900MHz  6.66  95%   0%  94%   0%   0%   0%  88.0°C
-08:33:36: 2900MHz  6.86  90%   1%  89%   0%   0%   0%  88.0°C
-
-System health while running cpuminer:
-
-Time        CPU    load %cpu %sys %usr %nice %io %irq   Temp
-08:33:42: 2628MHz  6.95   0%   0%   0%   0%   0%   0%  90.0°C
-08:34:23: 2613MHz  7.47 100%   0%  99%   0%   0%   0%  88.0°C
-08:35:03: 2600MHz  7.73 100%   0%  99%   0%   0%   0%  90.0°C
-08:35:44: 2600MHz  7.86 100%   0%  99%   0%   0%   0%  90.0°C
-08:36:24: 2600MHz  7.93 100%   0%  99%   0%   0%   0%  91.0°C
-08:37:05: 2600MHz  8.08 100%   0%  99%   0%   0%   0%  92.0°C
-08:37:46: 2600MHz  8.04 100%   0%  99%   0%   0%   0%  93.0°C
-08:38:26: 2600MHz  8.02 100%   0%  99%   0%   0%   0%  92.0°C
-
-##########################################################################
-
-dmesg output while running the benchmarks:
-
-[70524.549039] mce: CPU4: Core temperature above threshold, cpu clock throttled (total events = 3058)
-[70524.549040] mce: CPU0: Core temperature above threshold, cpu clock throttled (total events = 3058)
-[70524.549044] mce: CPU0: Package temperature above threshold, cpu clock throttled (total events = 38267)
-[70524.549044] mce: CPU4: Package temperature above threshold, cpu clock throttled (total events = 38267)
-[70524.549134] mce: CPU1: Package temperature above threshold, cpu clock throttled (total events = 38267)
-[70524.549137] mce: CPU7: Package temperature above threshold, cpu clock throttled (total events = 38267)
-[70524.549138] mce: CPU5: Package temperature above threshold, cpu clock throttled (total events = 38267)
-[70524.549139] mce: CPU6: Package temperature above threshold, cpu clock throttled (total events = 38267)
-[70524.549140] mce: CPU3: Package temperature above threshold, cpu clock throttled (total events = 38267)
-[70524.549141] mce: CPU2: Package temperature above threshold, cpu clock throttled (total events = 38267)
-[70524.569175] mce: CPU0: Core temperature/speed normal
-[70524.569176] mce: CPU4: Core temperature/speed normal
-[70524.569177] mce: CPU2: Package temperature/speed normal
-[70524.569178] mce: CPU6: Package temperature/speed normal
-[70524.569179] mce: CPU0: Package temperature/speed normal
-[70524.569180] mce: CPU4: Package temperature/speed normal
-[70524.569212] mce: CPU3: Package temperature/speed normal
-[70524.569213] mce: CPU7: Package temperature/speed normal
-[70524.569260] mce: CPU5: Package temperature/speed normal
-[70524.569260] mce: CPU1: Package temperature/speed normal
-[71113.231818] mce: CPU0: Core temperature above threshold, cpu clock throttled (total events = 11205)
-[71113.231818] mce: CPU4: Core temperature above threshold, cpu clock throttled (total events = 11205)
-[71113.231822] mce: CPU0: Package temperature above threshold, cpu clock throttled (total events = 57767)
-[71113.231823] mce: CPU4: Package temperature above threshold, cpu clock throttled (total events = 57767)
-[71113.231916] mce: CPU3: Package temperature above threshold, cpu clock throttled (total events = 57767)
-[71113.231926] mce: CPU2: Package temperature above threshold, cpu clock throttled (total events = 57767)
-[71113.231932] mce: CPU7: Package temperature above threshold, cpu clock throttled (total events = 57767)
-[71113.231934] mce: CPU1: Package temperature above threshold, cpu clock throttled (total events = 57767)
-[71113.231935] mce: CPU6: Package temperature above threshold, cpu clock throttled (total events = 57767)
-[71113.231936] mce: CPU5: Package temperature above threshold, cpu clock throttled (total events = 57767)
-[71113.232910] mce: CPU0: Core temperature/speed normal
-[71113.232910] mce: CPU4: Core temperature/speed normal
-[71113.232912] mce: CPU0: Package temperature/speed normal
-[71113.232913] mce: CPU4: Package temperature/speed normal
-[71113.233007] mce: CPU6: Package temperature/speed normal
-[71113.233014] mce: CPU1: Package temperature/speed normal
-[71113.233022] mce: CPU3: Package temperature/speed normal
-[71113.233028] mce: CPU5: Package temperature/speed normal
-[71113.233029] mce: CPU7: Package temperature/speed normal
-[71113.233030] mce: CPU2: Package temperature/speed normal
-
-##########################################################################
-
-Linux 5.4.0-137-generic (supernoserver) 	02/07/23 	_x86_64_	(8 CPU)
-
-avg-cpu:  %user   %nice %system %iowait  %steal   %idle
-           0.74    0.00    0.02    0.07    0.00   99.16
-
-Device             tps    kB_read/s    kB_wrtn/s    kB_dscd/s    kB_read    kB_wrtn    kB_dscd
-nvme0n1          27.47       895.71        24.55         0.00   63703761    1746373          0
-
-              total        used        free      shared  buff/cache   available
-Mem:          7.5Gi       361Mi       7.0Gi       1.0Mi       187Mi       6.9Gi
-Swap:         4.0Gi       0.0Ki       4.0Gi
-
-Filename				Type		Size	Used	Priority
-/swap.img                              	file    	4194300	512	-2
-
-CPU sysfs topology (clusters, cpufreq members, clockspeeds)
-                 cpufreq   min    max
- CPU    cluster  policy   speed  speed   core type
-  0        0        0      400    4700   i7-1165G7 @ 2.80GHz
-  1        0        1      400    4700   i7-1165G7 @ 2.80GHz
-  2        0        2      400    4700   i7-1165G7 @ 2.80GHz
-  3        0        3      400    4700   i7-1165G7 @ 2.80GHz
-  4        0        4      400    4700   i7-1165G7 @ 2.80GHz
-  5        0        5      400    4700   i7-1165G7 @ 2.80GHz
-  6        0        6      400    4700   i7-1165G7 @ 2.80GHz
-  7        0        7      400    4700   i7-1165G7 @ 2.80GHz
-
-Architecture:                    x86_64
-CPU op-mode(s):                  32-bit, 64-bit
-Byte Order:                      Little Endian
-Address sizes:                   39 bits physical, 48 bits virtual
-CPU(s):                          8
-On-line CPU(s) list:             0-7
-Thread(s) per core:              2
-Core(s) per socket:              4
-Socket(s):                       1
-NUMA node(s):                    1
-Vendor ID:                       GenuineIntel
-CPU family:                      6
-Model:                           140
-Model name:                      11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
-Stepping:                        1
-CPU MHz:                         3891.986
-CPU max MHz:                     4700.0000
-CPU min MHz:                     400.0000
-BogoMIPS:                        5606.40
-Virtualization:                  VT-x
-L1d cache:                       192 KiB
-L1i cache:                       128 KiB
-L2 cache:                        5 MiB
-L3 cache:                        12 MiB
-NUMA node0 CPU(s):               0-7
-Vulnerability Itlb multihit:     Not affected
-Vulnerability L1tf:              Not affected
-Vulnerability Mds:               Not affected
-Vulnerability Meltdown:          Not affected
-Vulnerability Mmio stale data:   Not affected
-Vulnerability Retbleed:          Not affected
-Vulnerability Spec store bypass: Mitigation; Speculative Store Bypass disabled via prctl and seccomp
-Vulnerability Spectre v1:        Mitigation; usercopy/swapgs barriers and __user pointer sanitization
-Vulnerability Spectre v2:        Mitigation; Enhanced IBRS, IBPB conditional, RSB filling, PBRSB-eIBRS SW sequence
-Vulnerability Srbds:             Not affected
-Vulnerability Tsx async abort:   Not affected
-Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l2 invpcid_single cdp_l2 ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb intel_pt avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid movdiri movdir64b avx512_vp2intersect md_clear flush_l1d arch_capabilities
-
-Processor Information
-	Socket Designation: U3E1
-	Type: Central Processor
-	Family: Core i7
-	Manufacturer: Intel(R) Corporation
-	ID: C1 06 08 00 FF FB EB BF
-	Signature: Type 0, Family 6, Model 140, Stepping 1
-	Flags:
-		FPU (Floating-point unit on-chip)
-		VME (Virtual mode extension)
-		DE (Debugging extension)
-		PSE (Page size extension)
-		TSC (Time stamp counter)
-		MSR (Model specific registers)
-		PAE (Physical address extension)
-		MCE (Machine check exception)
-		CX8 (CMPXCHG8 instruction supported)
-		APIC (On-chip APIC hardware supported)
-		SEP (Fast system call)
-		MTRR (Memory type range registers)
-		PGE (Page global enable)
-		MCA (Machine check architecture)
-		CMOV (Conditional move instruction supported)
-		PAT (Page attribute table)
-		PSE-36 (36-bit page size extension)
-		CLFSH (CLFLUSH instruction supported)
-		DS (Debug store)
-		ACPI (ACPI supported)
-		MMX (MMX technology supported)
-		FXSR (FXSAVE and FXSTOR instructions supported)
-		SSE (Streaming SIMD extensions)
-		SSE2 (Streaming SIMD extensions 2)
-		SS (Self-snoop)
-		HTT (Multi-threading)
-		TM (Thermal monitor supported)
-		PBE (Pending break enabled)
-	Version: 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
-	Voltage: 0.8 V
-	External Clock: 100 MHz
-	Max Speed: 4700 MHz
-	Current Speed: 2800 MHz
-	Status: Populated, Enabled
-	Upgrade: Other
-	L1 Cache Handle: 0x004B
-	L2 Cache Handle: 0x004C
-	L3 Cache Handle: 0x004D
-	Core Count: 4
-	Core Enabled: 4
-	Thread Count: 8
-	Characteristics:
-		64-bit capable
-		Multi-Core
-		Hardware Thread
-		Execute Protection
-		Enhanced Virtualization
-		Power/Performance Control
-
-SoC guess: 
- Compiler: /usr/bin/gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0 / x86_64-linux-gnu
- Userland: amd64
-   Kernel: 5.4.0-137-generic/x86_64
-           CONFIG_HZ=250
-           CONFIG_HZ_250=y
-           CONFIG_PREEMPT_NOTIFIERS=y
-           CONFIG_PREEMPT_VOLUNTARY=y
-           raid6: avx512x4 gen() 62227 MB/s
-           raid6: avx512x4 xor() 32916 MB/s
-           raid6: avx512x2 gen() 52365 MB/s
-           raid6: avx512x2 xor() 30883 MB/s
-           raid6: avx512x1 gen() 44596 MB/s
-           raid6: avx512x1 xor() 26211 MB/s
-           raid6: avx2x4   gen() 43069 MB/s
-           raid6: avx2x4   xor() 25716 MB/s
-           raid6: avx2x2   gen() 42878 MB/s
-           raid6: avx2x2   xor() 28432 MB/s
-           raid6: avx2x1   gen() 34988 MB/s
-           raid6: avx2x1   xor() 21148 MB/s
-           raid6: sse2x4   gen() 14615 MB/s
-           raid6: sse2x4   xor()  8762 MB/s
-           raid6: sse2x2   gen() 13838 MB/s
-           raid6: sse2x2   xor()  8764 MB/s
-           raid6: sse2x1   gen() 13056 MB/s
-           raid6: sse2x1   xor()  7060 MB/s
-           raid6: using algorithm avx512x4 gen() 62227 MB/s
-           raid6: .... xor() 32916 MB/s, rmw enabled
-           raid6: using avx512x2 recovery algorithm
-           xor: automatically using best checksumming function   avx       
-
-##########################################################################
-
-DIMM configuration:
-          description: SODIMM DDR4 Synchronous 2667 MHz (0.4 ns)
-          product: HMA81GS6CJR8N-VK
-          vendor: SK Hynix
-          physical id: 0
-          configured speed: 2667MT/s
-          size: 8GiB
-          width: 64 bits
-          clock: 2667MHz (0.4ns)
-
-|  / i7-1165G7 @ 2.80GHz | ~4520 | 5.4 | Ubuntu 20.04.5 LTS x86_64/amd64 | 20420 | 4702 | 1501600 | 9890 | 19780 | 71.53 |
+## Benchmarks
+
+### sbc-bench without Fan
+
+* [Link ix.io](http://ix.io/4nmo)
+
+### sbc-bench with SYS_FAN 120mm (550 RPM)
+
+* [Link ix.io](http://ix.io/4nxi)
+* [Test geekbench.com](https://browser.geekbench.com/v5/cpu/20462120)
+* [Test geekbench full results](http://ix.io/4nCj)
+
+### sbc-bench with SYS_FAN 120mm (550 RPM) temp outside -1 degree Celsius
+
+* [Link ix.oi](http://ix.io/4nCV)
+
+### Summary
+
+| Device / details | Clockspeed | Kernel | Distro | 7-zip multi | 7-zip single | AES | memcpy | memset | kH/s | Comment |
+| ----- | :--------: | :----: | :----: | ----: | ------: | ------: | -----: | -----: | ---: | :--- |
+|  i7-1165G7 @ 2.80GHz | ~4520 | 5.4 | Ubuntu 20.04.5 LTS x86_64/amd64 | 20420 | 4702 | 1501600 | 9890 | 19780 | 71.53 | without Fan |
+|  i7-1165G7 @ 2.80GHz | ~4460 | 5.4 | Ubuntu 20.04.5 LTS x86_64/amd64 | 20790 | 5111 | 1565430 | 9570 | 19440 | 73.96 | with SYS_FAN 120mm (550 RPM) |
+|  i7-1165G7 @ 2.80GHz | 4700  | 5.4 | Ubuntu 20.04.5 LTS x86_64/amd64 | 22050 | 5475 | 1666320 | 16930 | 38630 | 77.12 | with SYS_FAN 120mm (550 RPM) temp outside -1 degree Celsius and dual-channel RAM |
+
+## PCI info
+
+<details>
+  <summary>lspci -Qv</summary>
+
+<BrowserWindow>
+
+```yaml
+00:00.0 Host bridge: Intel Corporation 11th Gen Core Processor Host Bridge/DRAM Registers (rev 01)
+        DeviceName: Onboard - Other
+        Subsystem: Intel Corporation Device 7270
+        Flags: bus master, fast devsel, latency 0
+        Capabilities: [e0] Vendor Specific Information: Len=14 <?>
+
+00:02.0 VGA compatible controller: Intel Corporation TigerLake-LP GT2 [Iris Xe Graphics] (rev 01) (prog-if 00 [VGA controller])
+        DeviceName: Onboard - Video
+        Subsystem: Intel Corporation Device 2212
+        Flags: bus master, fast devsel, latency 0, IRQ 255
+        Memory at 6000000000 (64-bit, non-prefetchable) [size=16M]
+        Memory at 4000000000 (64-bit, prefetchable) [size=256M]
+        I/O ports at 3000 [size=64]
+        Expansion ROM at 000c0000 [virtual] [disabled] [size=128K]
+        Capabilities: [40] Vendor Specific Information: Len=0c <?>
+        Capabilities: [70] Express Root Complex Integrated Endpoint, MSI 00
+        Capabilities: [ac] MSI: Enable- Count=1/1 Maskable+ 64bit-
+        Capabilities: [d0] Power Management version 2
+        Capabilities: [100] Process Address Space ID (PASID)
+        Capabilities: [200] Address Translation Service (ATS)
+        Capabilities: [300] Page Request Interface (PRI)
+        Capabilities: [320] Single Root I/O Virtualization (SR-IOV)
+        Kernel modules: i915
+
+00:06.0 PCI bridge: Intel Corporation 11th Gen Core Processor PCIe Controller (rev 01) (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 122
+        Bus: primary=00, secondary=01, subordinate=01, sec-latency=0
+        I/O behind bridge: [disabled]
+        Memory behind bridge: 51600000-516fffff [size=1M]
+        Prefetchable memory behind bridge: [disabled]
+        Capabilities: [40] Express Root Port (Slot+), MSI 00
+        Capabilities: [80] MSI: Enable+ Count=1/1 Maskable- 64bit-
+        Capabilities: [90] Subsystem: Intel Corporation Device 7270
+        Capabilities: [a0] Power Management version 3
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [220] Access Control Services
+        Capabilities: [150] Precision Time Measurement
+        Capabilities: [280] Virtual Channel
+        Capabilities: [a00] Downstream Port Containment
+        Capabilities: [a30] Secondary PCI Express
+        Capabilities: [a90] Data Link Feature <?>
+        Capabilities: [a9c] Physical Layer 16.0 GT/s <?>
+        Capabilities: [edc] Lane Margining at the Receiver <?>
+        Kernel driver in use: pcieport
+
+00:0a.0 Signal processing controller: Intel Corporation Tigerlake Telemetry Aggregator Driver (rev 01)
+        DeviceName: Onboard - Other
+        Subsystem: Intel Corporation Device 7270
+        Flags: fast devsel
+        Memory at 6001120000 (64-bit, non-prefetchable) [size=32K]
+        Capabilities: [70] Express Root Complex Integrated Endpoint, MSI 00
+        Capabilities: [d0] Power Management version 3
+        Capabilities: [100] Designated Vendor-Specific <?>
+        Capabilities: [110] Designated Vendor-Specific <?>
+        Capabilities: [120] Designated Vendor-Specific <?>
+
+00:0d.0 USB controller: Intel Corporation Tiger Lake-LP Thunderbolt 4 USB Controller (rev 01) (prog-if 30 [XHCI])
+        DeviceName: Onboard - Other
+        Subsystem: Intel Corporation Device 7270
+        Flags: bus master, medium devsel, latency 0, IRQ 131
+        Memory at 6001110000 (64-bit, non-prefetchable) [size=64K]
+        Capabilities: [70] Power Management version 2
+        Capabilities: [80] MSI: Enable+ Count=1/8 Maskable- 64bit+
+        Capabilities: [90] Vendor Specific Information: Len=14 <?>
+        Capabilities: [b0] Vendor Specific Information: Len=00 <?>
+        Kernel driver in use: xhci_hcd
+
+00:14.0 USB controller: Intel Corporation Tiger Lake-LP USB 3.2 Gen 2x1 xHCI Host Controller (rev 20) (prog-if 30 [XHCI])
+        DeviceName: Onboard - Other
+        Subsystem: Intel Corporation Device 7270
+        Flags: bus master, medium devsel, latency 0, IRQ 132
+        Memory at 6001100000 (64-bit, non-prefetchable) [size=64K]
+        Capabilities: [70] Power Management version 2
+        Capabilities: [80] MSI: Enable+ Count=1/8 Maskable- 64bit+
+        Capabilities: [90] Vendor Specific Information: Len=14 <?>
+        Capabilities: [b0] Vendor Specific Information: Len=00 <?>
+        Kernel driver in use: xhci_hcd
+
+00:14.2 RAM memory: Intel Corporation Tiger Lake-LP Shared SRAM (rev 20)
+        DeviceName: Onboard - Other
+        Subsystem: Intel Corporation Device 7270
+        Flags: fast devsel
+        Memory at 600112c000 (64-bit, non-prefetchable) [disabled] [size=16K]
+        Memory at 6001132000 (64-bit, non-prefetchable) [disabled] [size=4K]
+        Capabilities: [80] Power Management version 3
+
+00:16.0 Communication controller: Intel Corporation Tiger Lake-LP Management Engine Interface (rev 20)
+        DeviceName: Onboard - Other
+        Subsystem: Intel Corporation Device 7270
+        Flags: bus master, fast devsel, latency 0, IRQ 173
+        Memory at 6001131000 (64-bit, non-prefetchable) [size=4K]
+        Capabilities: [50] Power Management version 3
+        Capabilities: [8c] MSI: Enable+ Count=1/1 Maskable- 64bit+
+        Capabilities: [a4] Vendor Specific Information: Len=14 <?>
+        Kernel driver in use: mei_me
+        Kernel modules: mei_me
+
+00:17.0 SATA controller: Intel Corporation Tiger Lake-LP SATA Controller (rev 20) (prog-if 01 [AHCI 1.0])
+        DeviceName: Onboard - SATA
+        Subsystem: Intel Corporation Device 7270
+        Flags: bus master, 66MHz, medium devsel, latency 0, IRQ 133
+        Memory at 51700000 (32-bit, non-prefetchable) [size=8K]
+        Memory at 51703000 (32-bit, non-prefetchable) [size=256]
+        I/O ports at 3090 [size=8]
+        I/O ports at 3080 [size=4]
+        I/O ports at 3060 [size=32]
+        Memory at 51702000 (32-bit, non-prefetchable) [size=2K]
+        Capabilities: [80] MSI: Enable+ Count=1/1 Maskable- 64bit-
+        Capabilities: [70] Power Management version 3
+        Capabilities: [a8] SATA HBA v1.0
+        Kernel driver in use: ahci
+        Kernel modules: ahci
+
+00:1c.0 PCI bridge: Intel Corporation Device a0bc (rev 20) (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 123
+        Bus: primary=00, secondary=02, subordinate=05, sec-latency=0
+        I/O behind bridge: [disabled]
+        Memory behind bridge: 51300000-515fffff [size=3M]
+        Prefetchable memory behind bridge: [disabled]
+        Capabilities: [40] Express Root Port (Slot+), MSI 00
+        Capabilities: [80] MSI: Enable+ Count=1/1 Maskable- 64bit-
+        Capabilities: [90] Subsystem: Intel Corporation Device 7270
+        Capabilities: [a0] Power Management version 3
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [220] Access Control Services
+        Capabilities: [150] Precision Time Measurement
+        Capabilities: [a30] Secondary PCI Express
+        Capabilities: [a00] Downstream Port Containment
+        Kernel driver in use: pcieport
+
+00:1c.5 PCI bridge: Intel Corporation Tigerlake PCH-LP PCI Express Root Port #6 (rev 20) (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 124
+        Bus: primary=00, secondary=06, subordinate=06, sec-latency=0
+        I/O behind bridge: [disabled]
+        Memory behind bridge: 51000000-512fffff [size=3M]
+        Prefetchable memory behind bridge: [disabled]
+        Capabilities: [40] Express Root Port (Slot+), MSI 00
+        Capabilities: [80] MSI: Enable+ Count=1/1 Maskable- 64bit-
+        Capabilities: [90] Subsystem: Intel Corporation Device 7270
+        Capabilities: [a0] Power Management version 3
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [220] Access Control Services
+        Capabilities: [150] Precision Time Measurement
+        Capabilities: [a30] Secondary PCI Express
+        Capabilities: [a00] Downstream Port Containment
+        Kernel driver in use: pcieport
+
+00:1c.6 PCI bridge: Intel Corporation Device a0be (rev 20) (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 125
+        Bus: primary=00, secondary=07, subordinate=07, sec-latency=0
+        I/O behind bridge: [disabled]
+        Memory behind bridge: 50d00000-50ffffff [size=3M]
+        Prefetchable memory behind bridge: [disabled]
+        Capabilities: [40] Express Root Port (Slot+), MSI 00
+        Capabilities: [80] MSI: Enable+ Count=1/1 Maskable- 64bit-
+        Capabilities: [90] Subsystem: Intel Corporation Device 7270
+        Capabilities: [a0] Power Management version 3
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [220] Access Control Services
+        Capabilities: [150] Precision Time Measurement
+        Capabilities: [a30] Secondary PCI Express
+        Capabilities: [a00] Downstream Port Containment
+        Kernel driver in use: pcieport
+
+00:1c.7 PCI bridge: Intel Corporation Tiger Lake-LP PCI Express Root Port #8 (rev 20) (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 126
+        Bus: primary=00, secondary=08, subordinate=08, sec-latency=0
+        I/O behind bridge: [disabled]
+        Memory behind bridge: 50a00000-50cfffff [size=3M]
+        Prefetchable memory behind bridge: [disabled]
+        Capabilities: [40] Express Root Port (Slot+), MSI 00
+        Capabilities: [80] MSI: Enable+ Count=1/1 Maskable- 64bit-
+        Capabilities: [90] Subsystem: Intel Corporation Device 7270
+        Capabilities: [a0] Power Management version 3
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [220] Access Control Services
+        Capabilities: [150] Precision Time Measurement
+        Capabilities: [a30] Secondary PCI Express
+        Capabilities: [a00] Downstream Port Containment
+        Kernel driver in use: pcieport
+
+00:1d.0 PCI bridge: Intel Corporation Tiger Lake-LP PCI Express Root Port #9 (rev 20) (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 127
+        Bus: primary=00, secondary=09, subordinate=09, sec-latency=0
+        I/O behind bridge: [disabled]
+        Memory behind bridge: 50700000-509fffff [size=3M]
+        Prefetchable memory behind bridge: [disabled]
+        Capabilities: [40] Express Root Port (Slot+), MSI 00
+        Capabilities: [80] MSI: Enable+ Count=1/1 Maskable- 64bit-
+        Capabilities: [90] Subsystem: Intel Corporation Device 7270
+        Capabilities: [a0] Power Management version 3
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [220] Access Control Services
+        Capabilities: [150] Precision Time Measurement
+        Capabilities: [a30] Secondary PCI Express
+        Capabilities: [a00] Downstream Port Containment
+        Kernel driver in use: pcieport
+
+00:1d.1 PCI bridge: Intel Corporation Device a0b1 (rev 20) (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 128
+        Bus: primary=00, secondary=0a, subordinate=0a, sec-latency=0
+        I/O behind bridge: [disabled]
+        Memory behind bridge: 50400000-506fffff [size=3M]
+        Prefetchable memory behind bridge: [disabled]
+        Capabilities: [40] Express Root Port (Slot+), MSI 00
+        Capabilities: [80] MSI: Enable+ Count=1/1 Maskable- 64bit-
+        Capabilities: [90] Subsystem: Intel Corporation Device 7270
+        Capabilities: [a0] Power Management version 3
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [220] Access Control Services
+        Capabilities: [150] Precision Time Measurement
+        Capabilities: [a30] Secondary PCI Express
+        Capabilities: [a00] Downstream Port Containment
+        Kernel driver in use: pcieport
+
+00:1f.0 ISA bridge: Intel Corporation Tiger Lake-LP LPC Controller (rev 20)
+        DeviceName: Onboard - Other
+        Subsystem: Intel Corporation Device 7270
+        Flags: bus master, fast devsel, latency 0
+
+00:1f.3 Audio device: Intel Corporation Tiger Lake-LP Smart Sound Technology Audio Controller (rev 20)
+        DeviceName: Onboard - Sound
+        Subsystem: Intel Corporation Device 7270
+        Flags: fast devsel, IRQ 16
+        Memory at 6001128000 (64-bit, non-prefetchable) [size=16K]
+        Memory at 6001000000 (64-bit, non-prefetchable) [size=1M]
+        Capabilities: [50] Power Management version 3
+        Capabilities: [80] Vendor Specific Information: Len=14 <?>
+        Capabilities: [60] MSI: Enable- Count=1/1 Maskable- 64bit+
+        Kernel driver in use: snd_hda_intel
+        Kernel modules: snd_hda_intel, snd_sof_pci
+
+00:1f.4 SMBus: Intel Corporation Tiger Lake-LP SMBus Controller (rev 20)
+        DeviceName: Onboard - Other
+        Subsystem: Intel Corporation Device 7270
+        Flags: medium devsel, IRQ 16
+        Memory at 6001130000 (64-bit, non-prefetchable) [size=256]
+        I/O ports at efa0 [size=32]
+        Kernel driver in use: i801_smbus
+        Kernel modules: i2c_i801
+
+00:1f.5 Serial bus controller: Intel Corporation Tiger Lake-LP SPI Controller (rev 20)
+        DeviceName: Onboard - Other
+        Subsystem: Intel Corporation Device 7270
+        Flags: fast devsel
+        Memory at 51704000 (32-bit, non-prefetchable) [size=4K]
+
+01:00.0 Non-Volatile memory controller: Silicon Motion, Inc. SM2263EN/SM2263XT SSD Controller (rev 03) (prog-if 02 [NVM Express])
+        Subsystem: Silicon Motion, Inc. SM2263EN/SM2263XT SSD Controller
+        Flags: bus master, fast devsel, latency 0, IRQ 16, NUMA node 0
+        Memory at 51600000 (64-bit, non-prefetchable) [size=16K]
+        Capabilities: [40] Power Management version 3
+        Capabilities: [50] MSI: Enable- Count=1/8 Maskable+ 64bit+
+        Capabilities: [70] Express Endpoint, MSI 00
+        Capabilities: [b0] MSI-X: Enable+ Count=16 Masked-
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [158] Secondary PCI Express
+        Capabilities: [178] Latency Tolerance Reporting
+        Capabilities: [180] L1 PM Substates
+        Kernel driver in use: nvme
+        Kernel modules: nvme
+
+02:00.0 PCI bridge: ASMedia Technology Inc. ASM1182e 2-Port PCIe x1 Gen2 Packet Switch (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 16
+        Bus: primary=02, secondary=03, subordinate=05, sec-latency=0
+        I/O behind bridge: [disabled]
+        Memory behind bridge: 51300000-515fffff [size=3M]
+        Prefetchable memory behind bridge: [disabled]
+        Capabilities: [50] MSI: Enable- Count=1/1 Maskable- 64bit+
+        Capabilities: [78] Power Management version 3
+        Capabilities: [80] Express Upstream Port, MSI 00
+        Capabilities: [c0] Subsystem: ASMedia Technology Inc. ASM1182e 2-Port PCIe x1 Gen2 Packet Switch
+        Capabilities: [100] Virtual Channel
+        Capabilities: [200] Advanced Error Reporting
+        Capabilities: [300] Vendor Specific Information: ID=0000 Rev=0 Len=c00 <?>
+        Kernel driver in use: pcieport
+
+03:03.0 PCI bridge: ASMedia Technology Inc. ASM1182e 2-Port PCIe x1 Gen2 Packet Switch (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 129
+        Bus: primary=03, secondary=04, subordinate=04, sec-latency=0
+        I/O behind bridge: [disabled]
+        Memory behind bridge: 51300000-515fffff [size=3M]
+        Prefetchable memory behind bridge: [disabled]
+        Capabilities: [50] MSI: Enable+ Count=1/1 Maskable- 64bit+
+        Capabilities: [78] Power Management version 3
+        Capabilities: [80] Express Downstream Port (Slot+), MSI 00
+        Capabilities: [c0] Subsystem: ASMedia Technology Inc. ASM1182e 2-Port PCIe x1 Gen2 Packet Switch
+        Capabilities: [100] Virtual Channel
+        Capabilities: [200] Advanced Error Reporting
+        Kernel driver in use: pcieport
+
+03:07.0 PCI bridge: ASMedia Technology Inc. ASM1182e 2-Port PCIe x1 Gen2 Packet Switch (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 130
+        Bus: primary=03, secondary=05, subordinate=05, sec-latency=0
+        I/O behind bridge: [disabled]
+        Memory behind bridge: [disabled]
+        Prefetchable memory behind bridge: [disabled]
+        Capabilities: [50] MSI: Enable+ Count=1/1 Maskable- 64bit+
+        Capabilities: [78] Power Management version 3
+        Capabilities: [80] Express Downstream Port (Slot+), MSI 00
+        Capabilities: [c0] Subsystem: ASMedia Technology Inc. ASM1182e 2-Port PCIe x1 Gen2 Packet Switch
+        Capabilities: [100] Virtual Channel
+        Capabilities: [200] Advanced Error Reporting
+        Kernel driver in use: pcieport
+
+04:00.0 Ethernet controller: Intel Corporation Ethernet Controller I225-V (rev 03)
+        Subsystem: Intel Corporation Device 0000
+        Flags: bus master, fast devsel, latency 0, IRQ 19
+        Memory at 51400000 (32-bit, non-prefetchable) [size=1M]
+        Memory at 51500000 (32-bit, non-prefetchable) [size=16K]
+        Expansion ROM at 51300000 [disabled] [size=1M]
+        Capabilities: [40] Power Management version 3
+        Capabilities: [50] MSI: Enable- Count=1/1 Maskable+ 64bit+
+        Capabilities: [70] MSI-X: Enable+ Count=5 Masked-
+        Capabilities: [a0] Express Endpoint, MSI 00
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [140] Device Serial Number 00-90-27-ff-ff-e7-45-a3
+        Capabilities: [1c0] Latency Tolerance Reporting
+        Capabilities: [1f0] Precision Time Measurement
+        Capabilities: [1e0] L1 PM Substates
+        Kernel driver in use: igc
+        Kernel modules: igc
+
+06:00.0 Ethernet controller: Intel Corporation Ethernet Controller I225-V (rev 03)
+        Subsystem: Intel Corporation Device 0000
+        Flags: bus master, fast devsel, latency 0, IRQ 17
+        Memory at 51100000 (32-bit, non-prefetchable) [size=1M]
+        Memory at 51200000 (32-bit, non-prefetchable) [size=16K]
+        Expansion ROM at 51000000 [disabled] [size=1M]
+        Capabilities: [40] Power Management version 3
+        Capabilities: [50] MSI: Enable- Count=1/1 Maskable+ 64bit+
+        Capabilities: [70] MSI-X: Enable+ Count=5 Masked-
+        Capabilities: [a0] Express Endpoint, MSI 00
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [140] Device Serial Number 00-90-27-ff-ff-e7-45-a4
+        Capabilities: [1c0] Latency Tolerance Reporting
+        Capabilities: [1f0] Precision Time Measurement
+        Capabilities: [1e0] L1 PM Substates
+        Kernel driver in use: igc
+        Kernel modules: igc
+
+07:00.0 Ethernet controller: Intel Corporation Ethernet Controller I225-V (rev 03)
+        Subsystem: Intel Corporation Device 0000
+        Flags: bus master, fast devsel, latency 0, IRQ 18
+        Memory at 50e00000 (32-bit, non-prefetchable) [size=1M]
+        Memory at 50f00000 (32-bit, non-prefetchable) [size=16K]
+        Expansion ROM at 50d00000 [disabled] [size=1M]
+        Capabilities: [40] Power Management version 3
+        Capabilities: [50] MSI: Enable- Count=1/1 Maskable+ 64bit+
+        Capabilities: [70] MSI-X: Enable+ Count=5 Masked-
+        Capabilities: [a0] Express Endpoint, MSI 00
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [140] Device Serial Number 00-90-27-ff-ff-e7-45-a5
+        Capabilities: [1c0] Latency Tolerance Reporting
+        Capabilities: [1f0] Precision Time Measurement
+        Capabilities: [1e0] L1 PM Substates
+        Kernel driver in use: igc
+        Kernel modules: igc
+
+08:00.0 Ethernet controller: Intel Corporation Ethernet Controller I225-V (rev 03)
+        Subsystem: Intel Corporation Device 0000
+        Flags: bus master, fast devsel, latency 0, IRQ 19
+        Memory at 50b00000 (32-bit, non-prefetchable) [size=1M]
+        Memory at 50c00000 (32-bit, non-prefetchable) [size=16K]
+        Expansion ROM at 50a00000 [disabled] [size=1M]
+        Capabilities: [40] Power Management version 3
+        Capabilities: [50] MSI: Enable- Count=1/1 Maskable+ 64bit+
+        Capabilities: [70] MSI-X: Enable+ Count=5 Masked-
+        Capabilities: [a0] Express Endpoint, MSI 00
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [140] Device Serial Number 00-90-27-ff-ff-e7-45-a6
+        Capabilities: [1c0] Latency Tolerance Reporting
+        Capabilities: [1f0] Precision Time Measurement
+        Capabilities: [1e0] L1 PM Substates
+        Kernel driver in use: igc
+        Kernel modules: igc
+
+09:00.0 Ethernet controller: Intel Corporation Ethernet Controller I225-V (rev 03)
+        Subsystem: Intel Corporation Device 0000
+        Flags: bus master, fast devsel, latency 0, IRQ 16
+        Memory at 50800000 (32-bit, non-prefetchable) [size=1M]
+        Memory at 50900000 (32-bit, non-prefetchable) [size=16K]
+        Expansion ROM at 50700000 [disabled] [size=1M]
+        Capabilities: [40] Power Management version 3
+        Capabilities: [50] MSI: Enable- Count=1/1 Maskable+ 64bit+
+        Capabilities: [70] MSI-X: Enable+ Count=5 Masked-
+        Capabilities: [a0] Express Endpoint, MSI 00
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [140] Device Serial Number 00-90-27-ff-ff-e7-45-a7
+        Capabilities: [1c0] Latency Tolerance Reporting
+        Capabilities: [1f0] Precision Time Measurement
+        Capabilities: [1e0] L1 PM Substates
+        Kernel driver in use: igc
+        Kernel modules: igc
+
+0a:00.0 Ethernet controller: Intel Corporation Ethernet Controller I225-V (rev 03)
+        Subsystem: Intel Corporation Device 0000
+        Flags: bus master, fast devsel, latency 0, IRQ 17
+        Memory at 50500000 (32-bit, non-prefetchable) [size=1M]
+        Memory at 50600000 (32-bit, non-prefetchable) [size=16K]
+        Expansion ROM at 50400000 [disabled] [size=1M]
+        Capabilities: [40] Power Management version 3
+        Capabilities: [50] MSI: Enable- Count=1/1 Maskable+ 64bit+
+        Capabilities: [70] MSI-X: Enable+ Count=5 Masked-
+        Capabilities: [a0] Express Endpoint, MSI 00
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [140] Device Serial Number 00-90-27-ff-ff-e7-45-a8
+        Capabilities: [1c0] Latency Tolerance Reporting
+        Capabilities: [1f0] Precision Time Measurement
+        Capabilities: [1e0] L1 PM Substates
+        Kernel driver in use: igc
+        Kernel modules: igc
 ```
 
-## sbc-bench with cooler 120mm (SYS_FAN 550 RPM)
+</BrowserWindow>
 
-[Link ix.io](http://ix.io/4nxi)
-
-```yaml title="./sbc-bench.sh -c"
-sbc-bench v0.9.12  / i7-1165G7 @ 2.80GHz (Thu, 09 Feb 2023 09:53:36 +0000)
-
-Distributor ID:	Ubuntu
-Description:	Ubuntu 20.04.5 LTS
-Release:	20.04
-Codename:	focal
-
-BIOS/UEFI:
-	Vendor: American Megatrends International, LLC.
-	Version: 5.19
-	Release Date: 03/30/2021
-	BIOS Revision: 5.19
-
-/usr/bin/gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
-
-Uptime: 09:53:36 up 5 min,  2 users,  load average: 0.22, 0.27, 0.13,  74.0°C,  31421922
-
-Linux 5.4.0-137-generic (supernoserver) 	02/09/23 	_x86_64_	(8 CPU)
-
-avg-cpu:  %user   %nice %system %iowait  %steal   %idle
-           0.20    0.00    0.29    0.06    0.00   99.45
-
-Device             tps    kB_read/s    kB_wrtn/s    kB_dscd/s    kB_read    kB_wrtn    kB_dscd
-nvme0n1          34.80       989.13        59.85         0.00     317590      19217          0
-
-              total        used        free      shared  buff/cache   available
-Mem:          7.5Gi       326Mi       7.1Gi       1.0Mi       137Mi       7.0Gi
-Swap:         4.0Gi          0B       4.0Gi
-
-Filename				Type		Size	Used	Priority
-/swap.img                              	file    	4194300	0	-2
-
-##########################################################################
-
-Intel P-States: Intel P-state driver initializing, HWP enabled
-
-Checking cpufreq OPP:
-
-Cpufreq OPP: 4700    Measured: 4459 (4800.114/4289.457/4289.366)     (-5.1%)
-Cpufreq OPP:  400    Measured:  398    (399.180/398.263/398.153)
-
-##########################################################################
-
-Hardware sensors:
-
-acpitz-acpi-0
-temp1:        +27.8 C  (crit = +119.0 C)
-
-coretemp-isa-0000
-Package id 0:  +37.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 0:        +34.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 1:        +35.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 2:        +31.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 3:        +32.0 C  (high = +100.0 C, crit = +100.0 C)
-
-##########################################################################
-
-Executing benchmark on cpu0:
-
-tinymembench v0.4.9 (simple benchmark for memory throughput and latency)
-
-==========================================================================
-== Memory bandwidth tests                                               ==
-==                                                                      ==
-== Note 1: 1MB = 1000000 bytes                                          ==
-== Note 2: Results for 'copy' tests show how many bytes can be          ==
-==         copied per second (adding together read and writen           ==
-==         bytes would have provided twice higher numbers)              ==
-== Note 3: 2-pass copy means that we are using a small temporary buffer ==
-==         to first fetch data into it, and only then write it to the   ==
-==         destination (source -> L1 cache, L1 cache -> destination)    ==
-== Note 4: If sample standard deviation exceeds 0.1%, it is shown in    ==
-==         brackets                                                     ==
-==========================================================================
-
- C copy backwards                                     :   6328.6 MB/s (1.2%)
- C copy backwards (32 byte blocks)                    :   6342.0 MB/s (0.2%)
- C copy backwards (64 byte blocks)                    :   6349.1 MB/s (0.2%)
- C copy                                               :   6385.5 MB/s (0.3%)
- C copy prefetched (32 bytes step)                    :   5360.8 MB/s (0.2%)
- C copy prefetched (64 bytes step)                    :   5361.6 MB/s
- C 2-pass copy                                        :   5881.5 MB/s (0.5%)
- C 2-pass copy prefetched (32 bytes step)             :   4778.7 MB/s
- C 2-pass copy prefetched (64 bytes step)             :   4773.4 MB/s
- C fill                                               :  10472.9 MB/s (2.7%)
- C fill (shuffle within 16 byte blocks)               :  10456.3 MB/s (0.7%)
- C fill (shuffle within 32 byte blocks)               :  10495.5 MB/s (0.7%)
- C fill (shuffle within 64 byte blocks)               :  10431.0 MB/s (1.4%)
- ---
- standard memcpy                                      :   9574.4 MB/s (0.4%)
- standard memset                                      :  19436.7 MB/s (0.5%)
- ---
- MOVSB copy                                           :   9504.4 MB/s (0.4%)
- MOVSD copy                                           :   9478.9 MB/s
- SSE2 copy                                            :   6461.4 MB/s (0.5%)
- SSE2 nontemporal copy                                :   9137.3 MB/s (1.0%)
- SSE2 copy prefetched (32 bytes step)                 :   5387.4 MB/s
- SSE2 copy prefetched (64 bytes step)                 :   5423.3 MB/s
- SSE2 nontemporal copy prefetched (32 bytes step)     :   7052.8 MB/s
- SSE2 nontemporal copy prefetched (64 bytes step)     :   6918.4 MB/s
- SSE2 2-pass copy                                     :   6031.8 MB/s (0.3%)
- SSE2 2-pass copy prefetched (32 bytes step)          :   5092.7 MB/s
- SSE2 2-pass copy prefetched (64 bytes step)          :   5130.3 MB/s
- SSE2 2-pass nontemporal copy                         :   3894.7 MB/s (0.2%)
- SSE2 fill                                            :  10092.6 MB/s (6.0%)
- SSE2 nontemporal fill                                :  19230.9 MB/s
-
-==========================================================================
-== Framebuffer read tests.                                              ==
-==                                                                      ==
-== Many ARM devices use a part of the system memory as the framebuffer, ==
-== typically mapped as uncached but with write-combining enabled.       ==
-== Writes to such framebuffers are quite fast, but reads are much       ==
-== slower and very sensitive to the alignment and the selection of      ==
-== CPU instructions which are used for accessing memory.                ==
-==                                                                      ==
-== Many x86 systems allocate the framebuffer in the GPU memory,         ==
-== accessible for the CPU via a relatively slow PCI-E bus. Moreover,    ==
-== PCI-E is asymmetric and handles reads a lot worse than writes.       ==
-==                                                                      ==
-== If uncached framebuffer reads are reasonably fast (at least 100 MB/s ==
-== or preferably >300 MB/s), then using the shadow framebuffer layer    ==
-== is not necessary in Xorg DDX drivers, resulting in a nice overall    ==
-== performance improvement. For example, the xf86-video-fbturbo DDX     ==
-== uses this trick.                                                     ==
-==========================================================================
-
- MOVSD copy (from framebuffer)                        :    142.5 MB/s
- MOVSD 2-pass copy (from framebuffer)                 :    137.5 MB/s
- SSE2 copy (from framebuffer)                         :     35.9 MB/s
- SSE2 2-pass copy (from framebuffer)                  :     35.9 MB/s
-
-==========================================================================
-== Memory latency test                                                  ==
-==                                                                      ==
-== Average time is measured for random memory accesses in the buffers   ==
-== of different sizes. The larger is the buffer, the more significant   ==
-== are relative contributions of TLB, L1/L2 cache misses and SDRAM      ==
-== accesses. For extremely large buffer sizes we are expecting to see   ==
-== page table walk with several requests to SDRAM for almost every      ==
-== memory access (though 64MiB is not nearly large enough to experience ==
-== this effect to its fullest).                                         ==
-==                                                                      ==
-== Note 1: All the numbers are representing extra time, which needs to  ==
-==         be added to L1 cache latency. The cycle timings for L1 cache ==
-==         latency can be usually found in the processor documentation. ==
-== Note 2: Dual random read means that we are simultaneously performing ==
-==         two independent memory accesses at a time. In the case if    ==
-==         the memory subsystem can't handle multiple outstanding       ==
-==         requests, dual random read has the same timings as two       ==
-==         single reads performed one after another.                    ==
-==========================================================================
-
-block size : single random read / dual random read, [MADV_NOHUGEPAGE]
-      1024 :    0.0 ns          /     0.0 ns 
-      2048 :    0.0 ns          /     0.0 ns 
-      4096 :    0.0 ns          /     0.0 ns 
-      8192 :    0.0 ns          /     0.0 ns 
-     16384 :    0.0 ns          /     0.0 ns 
-     32768 :    0.0 ns          /     0.0 ns 
-     65536 :    0.5 ns          /     0.8 ns 
-    131072 :    1.2 ns          /     1.7 ns 
-    262144 :    1.6 ns          /     1.9 ns 
-    524288 :    2.5 ns          /     3.0 ns 
-   1048576 :    3.0 ns          /     3.3 ns 
-   2097152 :    6.3 ns          /     8.2 ns 
-   4194304 :    8.9 ns          /    10.8 ns 
-   8388608 :   12.1 ns          /    14.0 ns 
-  16777216 :   28.5 ns          /    41.3 ns 
-  33554432 :   52.4 ns          /    70.9 ns 
-  67108864 :   65.6 ns          /    81.0 ns 
-
-block size : single random read / dual random read, [MADV_HUGEPAGE]
-      1024 :    0.0 ns          /     0.0 ns 
-      2048 :    0.0 ns          /     0.0 ns 
-      4096 :    0.0 ns          /     0.0 ns 
-      8192 :    0.0 ns          /     0.0 ns 
-     16384 :    0.0 ns          /     0.0 ns 
-     32768 :    0.0 ns          /     0.0 ns 
-     65536 :    0.5 ns          /     0.8 ns 
-    131072 :    1.2 ns          /     1.7 ns 
-    262144 :    1.6 ns          /     1.9 ns 
-    524288 :    1.8 ns          /     1.9 ns 
-   1048576 :    1.9 ns          /     1.9 ns 
-   2097152 :    4.9 ns          /     6.8 ns 
-   4194304 :    7.7 ns          /     9.4 ns 
-   8388608 :    8.7 ns          /    10.2 ns 
-  16777216 :   23.9 ns          /    36.0 ns 
-  33554432 :   48.0 ns          /    66.4 ns 
-  67108864 :   60.8 ns          /    76.5 ns 
-
-##########################################################################
-
-Executing ramlat on cpu0, results in ns:
-
-       size:  1x32  2x32  1x64  2x64 1xPTR 2xPTR 4xPTR 8xPTR
-         4k: 1.081 1.081 1.267 1.453 1.066 1.067 1.068 1.067 
-         8k: 1.080 1.080 1.267 1.455 1.070 1.067 1.067 1.067 
-        16k: 1.082 1.082 1.266 1.453 1.067 1.067 1.067 1.067 
-        32k: 1.081 1.082 1.267 1.463 1.067 1.067 1.068 1.067 
-        64k: 2.998 2.992 3.180 3.371 2.981 2.986 2.998 3.288 
-       128k: 3.004 2.996 3.197 3.370 2.983 2.992 3.000 3.417 
-       256k: 3.000 3.000 3.188 3.374 2.987 2.987 3.007 3.418 
-       512k: 4.507 4.499 4.679 4.863 4.484 4.479 4.491 4.663 
-      1024k: 11.49 9.939 9.900 10.19 9.836 10.51 10.92 11.78 
-      2048k: 11.12 11.32 11.14 11.59 11.11 11.41 12.15 13.70 
-      4096k: 12.83 12.87 12.71 13.16 12.81 13.27 14.19 16.84 
-      8192k: 16.39 14.92 14.77 15.21 14.79 15.41 16.47 18.91 
-     16384k: 44.21 39.62 44.05 41.19 43.60 44.17 55.35 57.33 
-
-##########################################################################
-
-Executing benchmark twice on cluster 0
-
-OpenSSL 1.1.1f, built on 31 Mar 2020
-type             16 bytes     64 bytes    256 bytes   1024 bytes   8192 bytes  16384 bytes
-aes-128-cbc    1164517.05k  1984475.18k  2075154.26k  2105224.19k  2114117.63k  2116643.50k
-aes-128-cbc    1135635.49k  1873291.95k  2094459.90k  2125646.17k  2159995.56k  2147538.26k
-aes-192-cbc    1084909.95k  1701222.51k  1765759.23k  1784061.61k  1786828.12k  1798313.30k
-aes-192-cbc    1098451.57k  1644206.10k  1668716.97k  1809326.42k  1817810.26k  1835286.53k
-aes-256-cbc     988904.37k  1376093.44k  1532769.88k  1546575.87k  1547878.40k  1553585.49k
-aes-256-cbc    1006796.64k  1386226.54k  1550407.42k  1564415.66k  1584138.92k  1577282.22k
-
-##########################################################################
-
-Executing benchmark single-threaded on cpu0
-
-7-Zip (a) [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
-p7zip Version 16.02 (locale=C,Utf16=off,HugeFiles=on,64 bits,8 CPUs 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1),ASM,AES-NI)
-
-11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1)
-CPU Freq: - - - - - - - - -
-
-RAM size:    7695 MB,  # CPU hardware threads:   8
-RAM usage:    435 MB,  # Benchmark threads:      1
-
-                       Compressing  |                  Decompressing
-Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
-         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
-
-22:       5880   100   5723   5720  |      57309   100   4894   4893
-23:       5187   100   5286   5285  |      56440   100   4887   4886
-24:       4804   100   5167   5165  |      55581   100   4881   4880
-25:       4548   100   5195   5193  |      54644   100   4865   4864
-----------------------------------  | ------------------------------
-Avr:             100   5343   5341  |              100   4882   4880
-Tot:             100   5112   5111
-
-##########################################################################
-
-Executing benchmark 3 times multi-threaded on CPUs 0-7
-
-7-Zip (a) [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
-p7zip Version 16.02 (locale=C,Utf16=off,HugeFiles=on,64 bits,8 CPUs 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1),ASM,AES-NI)
-
-11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1)
-CPU Freq: - - - - - - - - -
-
-RAM size:    7695 MB,  # CPU hardware threads:   8
-RAM usage:   1765 MB,  # Benchmark threads:      8
-
-                       Compressing  |                  Decompressing
-Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
-         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
-
-22:      24926   707   3428  24249  |     245488   798   2625  20939
-23:      24909   764   3323  25380  |     216389   797   2349  18726
-24:      21198   761   2994  22793  |     211444   798   2326  18558
-25:      20570   762   3084  23487  |     208425   795   2334  18549
-----------------------------------  | ------------------------------
-Avr:             748   3207  23977  |              797   2409  19193
-Tot:             773   2808  21585
-
-7-Zip (a) [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
-p7zip Version 16.02 (locale=C,Utf16=off,HugeFiles=on,64 bits,8 CPUs 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1),ASM,AES-NI)
-
-11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1)
-CPU Freq: - - - - - - - - -
-
-RAM size:    7695 MB,  # CPU hardware threads:   8
-RAM usage:   1765 MB,  # Benchmark threads:      8
-
-                       Compressing  |                  Decompressing
-Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
-         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
-
-22:      22381   711   3063  21773  |     218851   796   2346  18667
-23:      20996   703   3044  21393  |     216129   796   2350  18703
-24:      20903   734   3061  22476  |     211999   794   2344  18607
-25:      20316   749   3097  23196  |     209757   799   2337  18667
-----------------------------------  | ------------------------------
-Avr:             724   3066  22210  |              796   2344  18661
-Tot:             760   2705  20435
-
-7-Zip (a) [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
-p7zip Version 16.02 (locale=C,Utf16=off,HugeFiles=on,64 bits,8 CPUs 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1),ASM,AES-NI)
-
-11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz (806C1)
-CPU Freq: - - - - - - - - -
-
-RAM size:    7695 MB,  # CPU hardware threads:   8
-RAM usage:   1765 MB,  # Benchmark threads:      8
-
-                       Compressing  |                  Decompressing
-Dict     Speed Usage    R/U Rating  |      Speed Usage    R/U Rating
-         KiB/s     %   MIPS   MIPS  |      KiB/s     %   MIPS   MIPS
-
-22:      21676   693   3044  21087  |     219400   796   2352  18714
-23:      21155   706   3051  21555  |     216512   798   2349  18736
-24:      20814   730   3067  22379  |     213060   798   2344  18700
-25:      20190   741   3111  23053  |     208980   795   2339  18598
-----------------------------------  | ------------------------------
-Avr:             717   3068  22019  |              797   2346  18687
-Tot:             757   2707  20353
-
-Compression: 23977,22210,22019
-Decompression: 19193,18661,18687
-Total: 21585,20435,20353
-
-##########################################################################
-
-** cpuminer-multi 1.3.7 by tpruvot@github **
-BTC donation address: 1FhDPLPpw18X4srecguG3MxJYe4a1JsZnd (tpruvot)
-
-[2023-02-09 10:03:12] 8 miner threads started, using 'scrypt' algorithm.
-[2023-02-09 10:03:12] CPU #0: 12.50 kH/s
-[2023-02-09 10:03:12] CPU #2: 11.82 kH/s
-[2023-02-09 10:03:12] CPU #3: 11.85 kH/s
-[2023-02-09 10:03:12] CPU #5: 11.39 kH/s
-[2023-02-09 10:03:12] CPU #6: 11.38 kH/s
-[2023-02-09 10:03:12] CPU #7: 11.33 kH/s
-[2023-02-09 10:03:12] CPU #1: 11.32 kH/s
-[2023-02-09 10:03:12] CPU #4: 9.31 kH/s
-[2023-02-09 10:03:18] CPU #7: 9.28 kH/s
-[2023-02-09 10:03:18] Total: 88.82 kH/s
-[2023-02-09 10:03:18] CPU #1: 9.24 kH/s
-[2023-02-09 10:03:18] CPU #6: 9.28 kH/s
-[2023-02-09 10:03:18] CPU #5: 9.19 kH/s
-[2023-02-09 10:03:18] CPU #2: 9.27 kH/s
-[2023-02-09 10:03:18] CPU #3: 9.25 kH/s
-[2023-02-09 10:03:19] CPU #0: 9.20 kH/s
-[2023-02-09 10:03:22] CPU #4: 9.22 kH/s
-[2023-02-09 10:03:22] Total: 73.88 kH/s
-[2023-02-09 10:03:27] CPU #0: 9.18 kH/s
-[2023-02-09 10:03:27] CPU #7: 9.24 kH/s
-[2023-02-09 10:03:27] Total: 73.84 kH/s
-[2023-02-09 10:03:27] CPU #6: 9.26 kH/s
-[2023-02-09 10:03:27] CPU #1: 9.20 kH/s
-[2023-02-09 10:03:27] CPU #5: 9.20 kH/s
-[2023-02-09 10:03:27] CPU #2: 9.25 kH/s
-[2023-02-09 10:03:27] CPU #3: 9.25 kH/s
-[2023-02-09 10:03:32] CPU #4: 9.24 kH/s
-[2023-02-09 10:03:32] Total: 73.83 kH/s
-[2023-02-09 10:03:37] CPU #0: 9.19 kH/s
-[2023-02-09 10:03:37] CPU #7: 9.25 kH/s
-[2023-02-09 10:03:37] Total: 73.84 kH/s
-[2023-02-09 10:03:37] CPU #6: 9.28 kH/s
-[2023-02-09 10:03:37] CPU #1: 9.21 kH/s
-[2023-02-09 10:03:37] CPU #5: 9.22 kH/s
-[2023-02-09 10:03:37] CPU #2: 9.26 kH/s
-[2023-02-09 10:03:37] CPU #3: 9.26 kH/s
-[2023-02-09 10:03:42] CPU #4: 9.22 kH/s
-[2023-02-09 10:03:42] Total: 73.88 kH/s
-[2023-02-09 10:03:47] CPU #0: 9.20 kH/s
-[2023-02-09 10:03:47] CPU #7: 9.26 kH/s
-[2023-02-09 10:03:47] Total: 73.94 kH/s
-[2023-02-09 10:03:47] CPU #6: 9.30 kH/s
-[2023-02-09 10:03:47] CPU #1: 9.24 kH/s
-[2023-02-09 10:03:47] CPU #5: 9.24 kH/s
-[2023-02-09 10:03:47] CPU #2: 9.25 kH/s
-[2023-02-09 10:03:47] CPU #3: 9.28 kH/s
-[2023-02-09 10:03:52] CPU #4: 9.23 kH/s
-[2023-02-09 10:03:52] Total: 73.96 kH/s
-[2023-02-09 10:03:57] CPU #0: 9.19 kH/s
-[2023-02-09 10:03:57] CPU #7: 9.24 kH/s
-[2023-02-09 10:03:57] Total: 73.86 kH/s
-[2023-02-09 10:03:57] CPU #6: 9.27 kH/s
-[2023-02-09 10:03:57] CPU #1: 9.19 kH/s
-[2023-02-09 10:03:57] CPU #5: 9.22 kH/s
-[2023-02-09 10:03:57] CPU #2: 9.26 kH/s
-[2023-02-09 10:03:57] CPU #3: 9.25 kH/s
-[2023-02-09 10:04:02] CPU #4: 9.24 kH/s
-[2023-02-09 10:04:02] Total: 73.89 kH/s
-[2023-02-09 10:04:07] CPU #0: 9.17 kH/s
-[2023-02-09 10:04:07] CPU #7: 9.23 kH/s
-[2023-02-09 10:04:07] Total: 73.89 kH/s
-[2023-02-09 10:04:07] CPU #1: 9.20 kH/s
-[2023-02-09 10:04:07] CPU #6: 9.26 kH/s
-[2023-02-09 10:04:07] CPU #5: 9.20 kH/s
-[2023-02-09 10:04:07] CPU #2: 9.24 kH/s
-[2023-02-09 10:04:07] CPU #3: 9.25 kH/s
-[2023-02-09 10:04:12] CPU #4: 9.23 kH/s
-[2023-02-09 10:04:12] Total: 73.80 kH/s
-[2023-02-09 10:04:17] CPU #0: 9.18 kH/s
-[2023-02-09 10:04:17] CPU #7: 9.25 kH/s
-[2023-02-09 10:04:17] Total: 73.82 kH/s
-[2023-02-09 10:04:17] CPU #6: 9.27 kH/s
-[2023-02-09 10:04:17] CPU #1: 9.21 kH/s
-[2023-02-09 10:04:17] CPU #5: 9.21 kH/s
-[2023-02-09 10:04:17] CPU #2: 9.26 kH/s
-[2023-02-09 10:04:17] CPU #3: 9.26 kH/s
-[2023-02-09 10:04:22] CPU #4: 9.22 kH/s
-[2023-02-09 10:04:22] Total: 73.83 kH/s
-[2023-02-09 10:04:27] CPU #0: 9.16 kH/s
-[2023-02-09 10:04:27] CPU #7: 9.24 kH/s
-[2023-02-09 10:04:27] Total: 73.77 kH/s
-[2023-02-09 10:04:27] CPU #1: 9.21 kH/s
-[2023-02-09 10:04:27] CPU #6: 9.26 kH/s
-[2023-02-09 10:04:27] CPU #5: 9.21 kH/s
-[2023-02-09 10:04:27] CPU #2: 9.25 kH/s
-[2023-02-09 10:04:27] CPU #3: 9.25 kH/s
-[2023-02-09 10:04:32] CPU #4: 9.23 kH/s
-[2023-02-09 10:04:32] Total: 73.81 kH/s
-[2023-02-09 10:04:37] CPU #0: 9.18 kH/s
-[2023-02-09 10:04:37] CPU #7: 9.24 kH/s
-[2023-02-09 10:04:37] Total: 73.77 kH/s
-[2023-02-09 10:04:37] CPU #6: 9.27 kH/s
-[2023-02-09 10:04:37] CPU #1: 9.17 kH/s
-[2023-02-09 10:04:37] CPU #5: 9.21 kH/s
-[2023-02-09 10:04:37] CPU #2: 9.25 kH/s
-[2023-02-09 10:04:37] CPU #3: 9.25 kH/s
-[2023-02-09 10:04:42] CPU #4: 9.25 kH/s
-[2023-02-09 10:04:42] Total: 73.85 kH/s
-[2023-02-09 10:04:47] CPU #0: 9.19 kH/s
-[2023-02-09 10:04:47] CPU #7: 9.24 kH/s
-[2023-02-09 10:04:47] Total: 73.84 kH/s
-[2023-02-09 10:04:47] CPU #6: 9.26 kH/s
-[2023-02-09 10:04:47] CPU #1: 9.21 kH/s
-[2023-02-09 10:04:47] CPU #5: 9.21 kH/s
-[2023-02-09 10:04:47] CPU #2: 9.25 kH/s
-[2023-02-09 10:04:47] CPU #3: 9.25 kH/s
-[2023-02-09 10:04:52] CPU #4: 9.23 kH/s
-[2023-02-09 10:04:52] Total: 73.82 kH/s
-[2023-02-09 10:04:57] CPU #0: 9.18 kH/s
-[2023-02-09 10:04:57] CPU #7: 9.23 kH/s
-[2023-02-09 10:04:57] Total: 73.76 kH/s
-[2023-02-09 10:04:57] CPU #1: 9.20 kH/s
-[2023-02-09 10:04:57] CPU #6: 9.26 kH/s
-[2023-02-09 10:04:57] CPU #5: 9.20 kH/s
-[2023-02-09 10:04:57] CPU #2: 9.25 kH/s
-[2023-02-09 10:04:57] CPU #3: 9.24 kH/s
-[2023-02-09 10:05:02] CPU #4: 9.24 kH/s
-[2023-02-09 10:05:02] Total: 73.80 kH/s
-[2023-02-09 10:05:07] CPU #0: 9.18 kH/s
-[2023-02-09 10:05:07] CPU #7: 9.23 kH/s
-[2023-02-09 10:05:07] Total: 73.79 kH/s
-[2023-02-09 10:05:07] CPU #1: 9.20 kH/s
-[2023-02-09 10:05:07] CPU #6: 9.26 kH/s
-[2023-02-09 10:05:07] CPU #5: 9.20 kH/s
-[2023-02-09 10:05:07] CPU #2: 9.24 kH/s
-[2023-02-09 10:05:07] CPU #3: 9.24 kH/s
-[2023-02-09 10:05:12] CPU #4: 9.22 kH/s
-[2023-02-09 10:05:12] Total: 73.77 kH/s
-[2023-02-09 10:05:17] CPU #0: 9.18 kH/s
-[2023-02-09 10:05:17] CPU #7: 9.24 kH/s
-[2023-02-09 10:05:17] Total: 73.78 kH/s
-[2023-02-09 10:05:17] CPU #1: 9.20 kH/s
-[2023-02-09 10:05:17] CPU #6: 9.27 kH/s
-[2023-02-09 10:05:17] CPU #5: 9.20 kH/s
-[2023-02-09 10:05:17] CPU #2: 9.21 kH/s
-[2023-02-09 10:05:17] CPU #3: 9.24 kH/s
-[2023-02-09 10:05:22] CPU #4: 9.22 kH/s
-[2023-02-09 10:05:22] Total: 73.74 kH/s
-[2023-02-09 10:05:27] CPU #0: 9.19 kH/s
-[2023-02-09 10:05:27] CPU #7: 9.24 kH/s
-[2023-02-09 10:05:27] Total: 73.84 kH/s
-[2023-02-09 10:05:27] CPU #1: 9.20 kH/s
-[2023-02-09 10:05:27] CPU #6: 9.26 kH/s
-[2023-02-09 10:05:27] CPU #5: 9.20 kH/s
-[2023-02-09 10:05:27] CPU #2: 9.25 kH/s
-[2023-02-09 10:05:27] CPU #3: 9.25 kH/s
-[2023-02-09 10:05:32] CPU #4: 9.24 kH/s
-[2023-02-09 10:05:32] Total: 73.86 kH/s
-[2023-02-09 10:05:37] CPU #0: 9.17 kH/s
-[2023-02-09 10:05:37] CPU #7: 9.22 kH/s
-[2023-02-09 10:05:37] Total: 73.84 kH/s
-[2023-02-09 10:05:37] CPU #1: 9.20 kH/s
-[2023-02-09 10:05:37] CPU #6: 9.25 kH/s
-[2023-02-09 10:05:37] CPU #5: 9.20 kH/s
-[2023-02-09 10:05:37] CPU #2: 9.24 kH/s
-[2023-02-09 10:05:37] CPU #3: 9.23 kH/s
-[2023-02-09 10:05:42] CPU #4: 9.21 kH/s
-[2023-02-09 10:05:42] Total: 73.71 kH/s
-[2023-02-09 10:05:47] CPU #0: 9.17 kH/s
-[2023-02-09 10:05:47] CPU #7: 9.23 kH/s
-[2023-02-09 10:05:47] Total: 73.72 kH/s
-[2023-02-09 10:05:47] CPU #1: 9.19 kH/s
-[2023-02-09 10:05:47] CPU #6: 9.26 kH/s
-[2023-02-09 10:05:47] CPU #5: 9.19 kH/s
-[2023-02-09 10:05:47] CPU #2: 9.25 kH/s
-[2023-02-09 10:05:47] CPU #3: 9.25 kH/s
-[2023-02-09 10:05:52] CPU #4: 9.24 kH/s
-[2023-02-09 10:05:52] Total: 73.80 kH/s
-[2023-02-09 10:05:57] CPU #0: 9.18 kH/s
-[2023-02-09 10:05:57] CPU #7: 9.23 kH/s
-[2023-02-09 10:05:57] Total: 73.80 kH/s
-[2023-02-09 10:05:57] CPU #6: 9.27 kH/s
-[2023-02-09 10:05:57] CPU #1: 9.19 kH/s
-[2023-02-09 10:05:57] CPU #5: 9.19 kH/s
-[2023-02-09 10:05:57] CPU #2: 9.21 kH/s
-[2023-02-09 10:05:57] CPU #3: 9.25 kH/s
-[2023-02-09 10:06:02] CPU #4: 9.22 kH/s
-[2023-02-09 10:06:02] Total: 73.72 kH/s
-[2023-02-09 10:06:07] CPU #0: 9.17 kH/s
-[2023-02-09 10:06:07] CPU #7: 9.23 kH/s
-[2023-02-09 10:06:07] Total: 73.71 kH/s
-[2023-02-09 10:06:07] CPU #1: 9.19 kH/s
-[2023-02-09 10:06:07] CPU #6: 9.26 kH/s
-[2023-02-09 10:06:07] CPU #5: 9.20 kH/s
-[2023-02-09 10:06:07] CPU #2: 9.24 kH/s
-[2023-02-09 10:06:07] CPU #3: 9.24 kH/s
-[2023-02-09 10:06:12] CPU #4: 9.23 kH/s
-[2023-02-09 10:06:12] Total: 73.75 kH/s
-[2023-02-09 10:06:17] CPU #0: 9.17 kH/s
-[2023-02-09 10:06:17] CPU #7: 9.22 kH/s
-[2023-02-09 10:06:17] Total: 73.74 kH/s
-[2023-02-09 10:06:17] CPU #1: 9.19 kH/s
-[2023-02-09 10:06:17] CPU #6: 9.25 kH/s
-[2023-02-09 10:06:17] CPU #5: 9.19 kH/s
-[2023-02-09 10:06:17] CPU #2: 9.24 kH/s
-[2023-02-09 10:06:17] CPU #3: 9.24 kH/s
-[2023-02-09 10:06:22] CPU #4: 9.22 kH/s
-[2023-02-09 10:06:22] Total: 73.73 kH/s
-[2023-02-09 10:06:27] CPU #0: 9.18 kH/s
-[2023-02-09 10:06:27] CPU #7: 9.23 kH/s
-[2023-02-09 10:06:27] Total: 73.75 kH/s
-[2023-02-09 10:06:27] CPU #1: 9.20 kH/s
-[2023-02-09 10:06:27] CPU #6: 9.26 kH/s
-[2023-02-09 10:06:27] CPU #5: 9.20 kH/s
-[2023-02-09 10:06:27] CPU #2: 9.25 kH/s
-[2023-02-09 10:06:27] CPU #3: 9.24 kH/s
-[2023-02-09 10:06:32] CPU #4: 9.23 kH/s
-[2023-02-09 10:06:32] Total: 73.77 kH/s
-[2023-02-09 10:06:37] CPU #0: 9.17 kH/s
-[2023-02-09 10:06:37] CPU #7: 9.22 kH/s
-[2023-02-09 10:06:37] Total: 73.73 kH/s
-[2023-02-09 10:06:37] CPU #1: 9.19 kH/s
-[2023-02-09 10:06:37] CPU #6: 9.23 kH/s
-[2023-02-09 10:06:37] CPU #5: 9.19 kH/s
-[2023-02-09 10:06:37] CPU #2: 9.23 kH/s
-[2023-02-09 10:06:37] CPU #3: 9.24 kH/s
-[2023-02-09 10:06:42] CPU #4: 9.22 kH/s
-[2023-02-09 10:06:42] Total: 73.69 kH/s
-[2023-02-09 10:06:47] CPU #0: 9.18 kH/s
-[2023-02-09 10:06:47] CPU #7: 9.23 kH/s
-[2023-02-09 10:06:47] Total: 73.77 kH/s
-[2023-02-09 10:06:47] CPU #1: 9.20 kH/s
-[2023-02-09 10:06:47] CPU #6: 9.26 kH/s
-[2023-02-09 10:06:47] CPU #5: 9.20 kH/s
-[2023-02-09 10:06:47] CPU #2: 9.25 kH/s
-[2023-02-09 10:06:47] CPU #3: 9.25 kH/s
-[2023-02-09 10:06:52] CPU #4: 9.22 kH/s
-[2023-02-09 10:06:52] Total: 73.79 kH/s
-[2023-02-09 10:06:57] CPU #0: 9.19 kH/s
-[2023-02-09 10:06:57] CPU #7: 9.23 kH/s
-[2023-02-09 10:06:57] Total: 73.78 kH/s
-[2023-02-09 10:06:57] CPU #6: 9.26 kH/s
-[2023-02-09 10:06:57] CPU #1: 9.19 kH/s
-[2023-02-09 10:06:57] CPU #5: 9.19 kH/s
-[2023-02-09 10:06:57] CPU #2: 9.25 kH/s
-[2023-02-09 10:06:57] CPU #3: 9.25 kH/s
-[2023-02-09 10:07:02] CPU #4: 9.23 kH/s
-[2023-02-09 10:07:02] Total: 73.78 kH/s
-[2023-02-09 10:07:07] CPU #0: 9.15 kH/s
-[2023-02-09 10:07:07] CPU #7: 9.22 kH/s
-[2023-02-09 10:07:07] Total: 73.73 kH/s
-[2023-02-09 10:07:07] CPU #1: 9.19 kH/s
-[2023-02-09 10:07:07] CPU #6: 9.25 kH/s
-[2023-02-09 10:07:07] CPU #5: 9.19 kH/s
-[2023-02-09 10:07:07] CPU #2: 9.23 kH/s
-[2023-02-09 10:07:07] CPU #3: 9.23 kH/s
-[2023-02-09 10:07:12] CPU #4: 9.21 kH/s
-[2023-02-09 10:07:12] Total: 73.69 kH/s
-[2023-02-09 10:07:17] CPU #0: 9.17 kH/s
-[2023-02-09 10:07:17] CPU #7: 9.22 kH/s
-[2023-02-09 10:07:17] Total: 73.67 kH/s
-[2023-02-09 10:07:17] CPU #1: 9.19 kH/s
-[2023-02-09 10:07:17] CPU #6: 9.25 kH/s
-[2023-02-09 10:07:17] CPU #5: 9.19 kH/s
-[2023-02-09 10:07:17] CPU #2: 9.24 kH/s
-[2023-02-09 10:07:17] CPU #3: 9.23 kH/s
-[2023-02-09 10:07:22] CPU #4: 9.24 kH/s
-[2023-02-09 10:07:22] Total: 73.70 kH/s
-[2023-02-09 10:07:27] CPU #0: 9.16 kH/s
-[2023-02-09 10:07:27] CPU #7: 9.23 kH/s
-[2023-02-09 10:07:27] Total: 73.71 kH/s
-[2023-02-09 10:07:27] CPU #1: 9.20 kH/s
-[2023-02-09 10:07:27] CPU #6: 9.26 kH/s
-[2023-02-09 10:07:27] CPU #5: 9.20 kH/s
-[2023-02-09 10:07:27] CPU #2: 9.24 kH/s
-[2023-02-09 10:07:27] CPU #3: 9.24 kH/s
-[2023-02-09 10:07:32] CPU #4: 9.22 kH/s
-[2023-02-09 10:07:32] Total: 73.76 kH/s
-[2023-02-09 10:07:37] CPU #0: 9.17 kH/s
-[2023-02-09 10:07:37] CPU #7: 9.22 kH/s
-[2023-02-09 10:07:37] Total: 73.73 kH/s
-[2023-02-09 10:07:37] CPU #1: 9.19 kH/s
-[2023-02-09 10:07:37] CPU #6: 9.25 kH/s
-[2023-02-09 10:07:37] CPU #5: 9.19 kH/s
-[2023-02-09 10:07:37] CPU #2: 9.24 kH/s
-[2023-02-09 10:07:37] CPU #3: 9.23 kH/s
-[2023-02-09 10:07:42] CPU #4: 9.21 kH/s
-[2023-02-09 10:07:42] Total: 73.68 kH/s
-[2023-02-09 10:07:47] CPU #0: 9.17 kH/s
-[2023-02-09 10:07:47] CPU #7: 9.22 kH/s
-[2023-02-09 10:07:47] Total: 73.71 kH/s
-[2023-02-09 10:07:47] CPU #1: 9.19 kH/s
-[2023-02-09 10:07:47] CPU #6: 9.25 kH/s
-[2023-02-09 10:07:47] CPU #5: 9.19 kH/s
-[2023-02-09 10:07:47] CPU #2: 9.24 kH/s
-[2023-02-09 10:07:47] CPU #3: 9.24 kH/s
-[2023-02-09 10:07:52] CPU #4: 9.22 kH/s
-[2023-02-09 10:07:52] Total: 73.75 kH/s
-[2023-02-09 10:07:57] CPU #0: 9.19 kH/s
-[2023-02-09 10:07:57] CPU #7: 9.24 kH/s
-[2023-02-09 10:07:57] Total: 73.84 kH/s
-[2023-02-09 10:07:57] CPU #1: 9.21 kH/s
-[2023-02-09 10:07:57] CPU #6: 9.27 kH/s
-[2023-02-09 10:07:57] CPU #5: 9.21 kH/s
-[2023-02-09 10:07:57] CPU #2: 9.26 kH/s
-[2023-02-09 10:07:57] CPU #3: 9.25 kH/s
-[2023-02-09 10:08:02] CPU #4: 9.23 kH/s
-[2023-02-09 10:08:02] Total: 73.79 kH/s
-[2023-02-09 10:08:07] CPU #0: 9.18 kH/s
-[2023-02-09 10:08:07] CPU #7: 9.23 kH/s
-[2023-02-09 10:08:07] Total: 73.76 kH/s
-[2023-02-09 10:08:07] CPU #1: 9.20 kH/s
-[2023-02-09 10:08:07] CPU #6: 9.26 kH/s
-[2023-02-09 10:08:07] CPU #5: 9.20 kH/s
-[2023-02-09 10:08:07] CPU #2: 9.24 kH/s
-[2023-02-09 10:08:07] CPU #3: 9.24 kH/s
-
-Total Scores: 88.82,73.96,73.94,73.89,73.88,73.86,73.85,73.84,73.83,73.82,73.81,73.80,73.79,73.78,73.77,73.76,73.75,73.74,73.73,73.72,73.71,73.70,73.69,73.68,73.67
-
-##########################################################################
-
-Testing maximum cpufreq again, still under full load. System health now:
-
-Time        CPU    load %cpu %sys %usr %nice %io %irq   Temp
-10:07:59: 2676MHz  8.00 100%   0%  99%   0%   0%   0%  78.0°C
-
-Checking cpufreq OPP:
-
-Cpufreq OPP: 4700    Measured: 4688 (4688.133/4688.025/4688.025)
-
-##########################################################################
-
-Hardware sensors:
-
-acpitz-acpi-0
-temp1:        +27.8 C  (crit = +119.0 C)
-
-coretemp-isa-0000
-Package id 0:  +83.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 0:        +83.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 1:        +46.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 2:        +63.0 C  (high = +100.0 C, crit = +100.0 C)
-Core 3:        +45.0 C  (high = +100.0 C, crit = +100.0 C)
-
-##########################################################################
-
-Thermal source: /sys/devices/virtual/thermal/thermal_zone1/ (x86_pkg_temp)
-
-System health while running tinymembench:
-
-Time        CPU    load %cpu %sys %usr %nice %io %irq   Temp
-09:53:44: 4211MHz  0.28   0%   0%   0%   0%   0%   0%  60.0°C
-09:54:24: 4698MHz  0.63  12%   0%  12%   0%   0%   0%  93.0°C
-09:55:04: 4677MHz  0.81  12%   0%  12%   0%   0%   0%  81.0°C
-09:55:44: 4685MHz  0.91  12%   0%  12%   0%   0%   0%  90.0°C
-09:56:24: 4695MHz  1.02  12%   0%  12%   0%   0%   0%  83.0°C
-09:57:04: 4697MHz  1.01  12%   0%  12%   0%   0%   0%  78.0°C
-09:57:44: 4676MHz  1.00  12%   0%  12%   0%   0%   0%  81.0°C
-09:58:24: 4688MHz  1.00  12%   0%  12%   0%   0%   0%  73.0°C
-
-System health while running ramlat:
-
-Time        CPU    load %cpu %sys %usr %nice %io %irq   Temp
-09:58:29: 4240MHz  1.00   6%   0%   6%   0%   0%   0%  89.0°C
-09:58:32: 4697MHz  1.00  12%   0%  12%   0%   0%   0%  70.0°C
-09:58:35: 4694MHz  1.00  12%   0%  12%   0%   0%   0%  78.0°C
-09:58:38: 4691MHz  1.00  12%   0%  12%   0%   0%   0%  74.0°C
-09:58:41: 4693MHz  1.00  12%   0%  12%   0%   0%   0%  74.0°C
-09:58:44: 4694MHz  1.00  13%   0%  12%   0%   0%   0%  84.0°C
-09:58:47: 4692MHz  1.00  12%   0%  12%   0%   0%   0%  74.0°C
-09:58:50: 4693MHz  1.00  12%   0%  12%   0%   0%   0%  74.0°C
-
-System health while running OpenSSL benchmark:
-
-Time        CPU    load %cpu %sys %usr %nice %io %irq   Temp
-09:58:51: 3854MHz  1.00   6%   0%   6%   0%   0%   0%  100.0°C
-09:59:07: 1439MHz  1.00  12%   0%  12%   0%   0%   0%  88.0°C
-09:59:23: 4512MHz  1.00  12%   0%  12%   0%   0%   0%  97.0°C
-09:59:39: 1731MHz  1.00  12%   0%  12%   0%   0%   0%  88.0°C
-09:59:55: 4500MHz  1.00  12%   0%  12%   0%   0%   0%  98.0°C
-10:00:11: 1837MHz  1.00  12%   0%  12%   0%   0%   0%  92.0°C
-10:00:27: 4472MHz  1.00  12%   0%  12%   0%   0%   0%  98.0°C
-
-System health while running 7-zip single core benchmark:
-
-Time        CPU    load %cpu %sys %usr %nice %io %irq   Temp
-10:00:39: 4195MHz  1.00   7%   0%   7%   0%   0%   0%  97.0°C
-10:00:44: 4381MHz  1.00  12%   0%  12%   0%   0%   0%  99.0°C
-10:00:49: 4321MHz  1.00  12%   0%  12%   0%   0%   0%  95.0°C
-10:00:54: 4347MHz  1.00  12%   0%  12%   0%   0%   0%  99.0°C
-10:00:59: 4290MHz  1.00  12%   0%  12%   0%   0%   0%  87.0°C
-10:01:04: 4402MHz  1.00  12%   0%  12%   0%   0%   0%  99.0°C
-
-System health while running 7-zip multi core benchmark:
-
-Time        CPU    load %cpu %sys %usr %nice %io %irq   Temp
-10:01:07: 3743MHz  1.00   7%   0%   7%   0%   0%   0%  92.0°C
-10:01:17: 3445MHz  2.31  96%   0%  95%   0%   0%   0%  96.0°C
-10:01:28: 3000MHz  3.27  96%   0%  95%   0%   0%   0%  72.0°C
-10:01:39: 2965MHz  3.91  93%   0%  92%   0%   0%   0%  75.0°C
-10:01:49: 2900MHz  4.54  97%   0%  96%   0%   0%   0%  72.0°C
-10:01:59: 3068MHz  5.07  95%   0%  94%   0%   0%   0%  76.0°C
-10:02:09: 3000MHz  4.96  95%   0%  94%   0%   0%   0%  70.0°C
-10:02:20: 2900MHz  5.43  92%   0%  91%   0%   0%   0%  72.0°C
-10:02:30: 3053MHz  5.83  97%   0%  96%   0%   0%   0%  81.0°C
-10:02:40: 3052MHz  6.01  94%   0%  94%   0%   0%   0%  76.0°C
-10:02:50: 2968MHz  6.32  94%   0%  94%   0%   0%   0%  74.0°C
-10:03:00: 2999MHz  6.65  92%   0%  91%   0%   0%   0%  77.0°C
-10:03:10: 3019MHz  6.93  96%   0%  95%   0%   0%   0%  74.0°C
-
-System health while running cpuminer:
-
-Time        CPU    load %cpu %sys %usr %nice %io %irq   Temp
-10:03:14: 2696MHz  7.02  20%   0%  19%   0%   0%   0%  76.0°C
-10:03:55: 2700MHz  7.50 100%   0%  99%   0%   0%   0%  76.0°C
-10:04:35: 2700MHz  7.74 100%   0%  99%   0%   0%   0%  75.0°C
-10:05:16: 2700MHz  7.92 100%   0%  99%   0%   0%   0%  76.0°C
-10:05:57: 2700MHz  7.96 100%   0%  99%   0%   0%   0%  76.0°C
-10:06:37: 2700MHz  8.02 100%   0%  99%   0%   0%   0%  77.0°C
-10:07:18: 2693MHz  8.01 100%   0%  99%   0%   0%   0%  78.0°C
-10:07:59: 2676MHz  8.00 100%   0%  99%   0%   0%   0%  78.0°C
-
-##########################################################################
-
-dmesg output while running the benchmarks:
-
-[  356.027449] usb 3-1: USB disconnect, device number 2
-[  635.239026] mce: CPU3: Core temperature above threshold, cpu clock throttled (total events = 25)
-[  635.239026] mce: CPU7: Core temperature above threshold, cpu clock throttled (total events = 26)
-[  635.239030] mce: CPU7: Package temperature above threshold, cpu clock throttled (total events = 60)
-[  635.239031] mce: CPU3: Package temperature above threshold, cpu clock throttled (total events = 61)
-[  635.239119] mce: CPU4: Package temperature above threshold, cpu clock throttled (total events = 61)
-[  635.239125] mce: CPU0: Package temperature above threshold, cpu clock throttled (total events = 61)
-[  635.239130] mce: CPU1: Package temperature above threshold, cpu clock throttled (total events = 61)
-[  635.239131] mce: CPU6: Package temperature above threshold, cpu clock throttled (total events = 61)
-[  635.239132] mce: CPU2: Package temperature above threshold, cpu clock throttled (total events = 61)
-[  635.239133] mce: CPU5: Package temperature above threshold, cpu clock throttled (total events = 61)
-[  635.240101] mce: CPU3: Core temperature/speed normal
-[  635.240102] mce: CPU7: Core temperature/speed normal
-[  635.240103] mce: CPU3: Package temperature/speed normal
-[  635.240104] mce: CPU7: Package temperature/speed normal
-[  635.240118] mce: CPU4: Package temperature/speed normal
-[  635.240125] mce: CPU0: Package temperature/speed normal
-[  635.240191] mce: CPU5: Package temperature/speed normal
-[  635.240192] mce: CPU6: Package temperature/speed normal
-[  635.240193] mce: CPU2: Package temperature/speed normal
-[  635.240193] mce: CPU1: Package temperature/speed normal
-
-##########################################################################
-
-Linux 5.4.0-137-generic (supernoserver) 	02/09/23 	_x86_64_	(8 CPU)
-
-avg-cpu:  %user   %nice %system %iowait  %steal   %idle
-          39.66    0.00    0.18    0.02    0.00   60.14
-
-Device             tps    kB_read/s    kB_wrtn/s    kB_dscd/s    kB_read    kB_wrtn    kB_dscd
-nvme0n1          10.27       274.99        20.17         0.00     329950      24205          0
-
-              total        used        free      shared  buff/cache   available
-Mem:          7.5Gi       319Mi       7.1Gi       1.0Mi       151Mi       7.0Gi
-Swap:         4.0Gi          0B       4.0Gi
-
-Filename				Type		Size	Used	Priority
-/swap.img                              	file    	4194300	0	-2
-
-CPU sysfs topology (clusters, cpufreq members, clockspeeds)
-                 cpufreq   min    max
- CPU    cluster  policy   speed  speed   core type
-  0        0        0      400    4700   i7-1165G7 @ 2.80GHz
-  1        0        1      400    4700   i7-1165G7 @ 2.80GHz
-  2        0        2      400    4700   i7-1165G7 @ 2.80GHz
-  3        0        3      400    4700   i7-1165G7 @ 2.80GHz
-  4        0        4      400    4700   i7-1165G7 @ 2.80GHz
-  5        0        5      400    4700   i7-1165G7 @ 2.80GHz
-  6        0        6      400    4700   i7-1165G7 @ 2.80GHz
-  7        0        7      400    4700   i7-1165G7 @ 2.80GHz
-
-Architecture:                    x86_64
-CPU op-mode(s):                  32-bit, 64-bit
-Byte Order:                      Little Endian
-Address sizes:                   39 bits physical, 48 bits virtual
-CPU(s):                          8
-On-line CPU(s) list:             0-7
-Thread(s) per core:              2
-Core(s) per socket:              4
-Socket(s):                       1
-NUMA node(s):                    1
-Vendor ID:                       GenuineIntel
-CPU family:                      6
-Model:                           140
-Model name:                      11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
-Stepping:                        1
-CPU MHz:                         720.510
-CPU max MHz:                     4700.0000
-CPU min MHz:                     400.0000
-BogoMIPS:                        5606.40
-Virtualization:                  VT-x
-L1d cache:                       192 KiB
-L1i cache:                       128 KiB
-L2 cache:                        5 MiB
-L3 cache:                        12 MiB
-NUMA node0 CPU(s):               0-7
-Vulnerability Itlb multihit:     Not affected
-Vulnerability L1tf:              Not affected
-Vulnerability Mds:               Not affected
-Vulnerability Meltdown:          Not affected
-Vulnerability Mmio stale data:   Not affected
-Vulnerability Retbleed:          Not affected
-Vulnerability Spec store bypass: Mitigation; Speculative Store Bypass disabled via prctl and seccomp
-Vulnerability Spectre v1:        Mitigation; usercopy/swapgs barriers and __user pointer sanitization
-Vulnerability Spectre v2:        Mitigation; Enhanced IBRS, IBPB conditional, RSB filling, PBRSB-eIBRS SW sequence
-Vulnerability Srbds:             Not affected
-Vulnerability Tsx async abort:   Not affected
-Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l2 invpcid_single cdp_l2 ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdt_a avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb intel_pt avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid movdiri movdir64b avx512_vp2intersect md_clear flush_l1d arch_capabilities
-
-Processor Information
-	Socket Designation: U3E1
-	Type: Central Processor
-	Family: Core i7
-	Manufacturer: Intel(R) Corporation
-	ID: C1 06 08 00 FF FB EB BF
-	Signature: Type 0, Family 6, Model 140, Stepping 1
-	Flags:
-		FPU (Floating-point unit on-chip)
-		VME (Virtual mode extension)
-		DE (Debugging extension)
-		PSE (Page size extension)
-		TSC (Time stamp counter)
-		MSR (Model specific registers)
-		PAE (Physical address extension)
-		MCE (Machine check exception)
-		CX8 (CMPXCHG8 instruction supported)
-		APIC (On-chip APIC hardware supported)
-		SEP (Fast system call)
-		MTRR (Memory type range registers)
-		PGE (Page global enable)
-		MCA (Machine check architecture)
-		CMOV (Conditional move instruction supported)
-		PAT (Page attribute table)
-		PSE-36 (36-bit page size extension)
-		CLFSH (CLFLUSH instruction supported)
-		DS (Debug store)
-		ACPI (ACPI supported)
-		MMX (MMX technology supported)
-		FXSR (FXSAVE and FXSTOR instructions supported)
-		SSE (Streaming SIMD extensions)
-		SSE2 (Streaming SIMD extensions 2)
-		SS (Self-snoop)
-		HTT (Multi-threading)
-		TM (Thermal monitor supported)
-		PBE (Pending break enabled)
-	Version: 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
-	Voltage: 0.8 V
-	External Clock: 100 MHz
-	Max Speed: 4700 MHz
-	Current Speed: 2800 MHz
-	Status: Populated, Enabled
-	Upgrade: Other
-	L1 Cache Handle: 0x004B
-	L2 Cache Handle: 0x004C
-	L3 Cache Handle: 0x004D
-	Core Count: 4
-	Core Enabled: 4
-	Thread Count: 8
-	Characteristics:
-		64-bit capable
-		Multi-Core
-		Hardware Thread
-		Execute Protection
-		Enhanced Virtualization
-		Power/Performance Control
-
-SoC guess: 
- Compiler: /usr/bin/gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0 / x86_64-linux-gnu
- Userland: amd64
-   Kernel: 5.4.0-137-generic/x86_64
-           CONFIG_HZ=250
-           CONFIG_HZ_250=y
-           CONFIG_PREEMPT_NOTIFIERS=y
-           CONFIG_PREEMPT_VOLUNTARY=y
-           raid6: avx512x4 gen() 62073 MB/s
-           raid6: avx512x4 xor() 31718 MB/s
-           raid6: avx512x2 gen() 37612 MB/s
-           raid6: avx512x2 xor() 30317 MB/s
-           raid6: avx512x1 gen() 42870 MB/s
-           raid6: avx512x1 xor() 25743 MB/s
-           raid6: avx2x4   gen() 40667 MB/s
-           raid6: avx2x4   xor() 24751 MB/s
-           raid6: avx2x2   gen() 41277 MB/s
-           raid6: avx2x2   xor() 27974 MB/s
-           raid6: avx2x1   gen() 33605 MB/s
-           raid6: avx2x1   xor() 20764 MB/s
-           raid6: sse2x4   gen() 13734 MB/s
-           raid6: sse2x4   xor()  8236 MB/s
-           raid6: sse2x2   gen() 13340 MB/s
-           raid6: sse2x2   xor()  8583 MB/s
-           raid6: sse2x1   gen() 12743 MB/s
-           raid6: sse2x1   xor()  6926 MB/s
-           raid6: using algorithm avx512x4 gen() 62073 MB/s
-           raid6: .... xor() 31718 MB/s, rmw enabled
-           raid6: using avx512x2 recovery algorithm
-           xor: automatically using best checksumming function   avx       
-
-##########################################################################
-
-DIMM configuration:
-          description: SODIMM DDR4 Synchronous 2667 MHz (0.4 ns)
-          product: HMA81GS6CJR8N-VK
-          vendor: SK Hynix
-          physical id: 0
-          configured speed: 2667MT/s
-          size: 8GiB
-          width: 64 bits
-          clock: 2667MHz (0.4ns)
-
-|  / i7-1165G7 @ 2.80GHz | ~4460 | 5.4 | Ubuntu 20.04.5 LTS x86_64/amd64 | 20790 | 5111 | 1565430 | 9570 | 19440 | 73.96 |
-```
+</details>
 
 ## Additional information
 

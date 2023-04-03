@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[8486],{4590:e=>{e.exports=JSON.parse('{"title":"\ud83d\udc27 Linux","slug":"/category/-linux","permalink":"/docs/category/-linux","navigation":{"previous":{"title":"Intro","permalink":"/docs/intro"},"next":{"title":"intro","permalink":"/docs/linux/intro"}}}')}}]);

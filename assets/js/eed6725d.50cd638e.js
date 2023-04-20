@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[8304],{9458:s=>{s.exports=JSON.parse('{"label":"install","permalink":"/docs/tags/install","allTagsPath":"/docs/tags","count":1,"items":[{"id":"networks/Trex/installation","title":"Installation","description":"Trex installation","permalink":"/docs/networks/Trex/installation"}]}')}}]);

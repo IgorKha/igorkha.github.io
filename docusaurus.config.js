@@ -119,7 +119,16 @@ const config = {
                 label: 'Archive',
                 to: 'blog/archive'
               },
-
+            ],
+          },
+          {
+            label: 'Tools',
+            position: 'left',
+            items: [
+              {
+                label: '1046 rcw hex to bin',
+                to: '/1046hextobin'
+              },
             ],
           },
           {

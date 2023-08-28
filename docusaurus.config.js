@@ -129,6 +129,10 @@ const config = {
                 label: '1046 rcw hex to bin',
                 to: '/1046hextobin'
               },
+              {
+                label: 'CPU chart',
+                to: '/cpuChart'
+              },
             ],
           },
           {

@@ -133,6 +133,10 @@ const config = {
                 label: 'CPU chart',
                 to: '/cpuChart'
               },
+              {
+                label: 'Telegram ID',
+                to: '/telegramId'
+              },
             ],
           },
           {

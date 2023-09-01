@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import style from './style.module.css';
 
 const TelegramUpdates: React.FC = () => {
   const [botToken, setBotToken] = useState<string>('');
   const [telegramData, setTelegramData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchData = async () => {
     setIsLoading(true);
+    setError(null);
     try {
-      const response = await axios.post(`https://api.telegram.org/bot${botToken}/getUpdates`, {
-        offset: 5,
-      });
+      const response = await axios.post(`https://api.telegram.org/bot${botToken}/getUpdates`);
       setTelegramData(response.data);
     } catch (error) {
+      if (error.response) {
+        // Если есть ответ от сервера с ошибкой, выводим статус код и описание ошибки
+        setError(`Error: ${error.response.status} - ${error.response.statusText}`);
+      } else {
+        setError('An error occurred while fetching data.');
+      }
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -31,17 +38,19 @@ const TelegramUpdates: React.FC = () => {
       <p style={{ margin: '20px 10px' }}></p>
       <h1>Get Telegram ID</h1>
       <label>
-        Enter your bot token:
         <input
+          className={style.input}
           type="text"
           value={botToken}
           onChange={(e) => setBotToken(e.target.value)}
           placeholder="Your bot token"
         />
+      <button className={style.wide} onClick={handleButtonClick}>Send Request</button>
       </label>
-      <button onClick={handleButtonClick}>Send Request</button>
       {isLoading ? (
         <p>Loading Telegram data...</p>
+      ) : error ? (
+        <p className={style.error_message}>{error}</p>
       ) : telegramData ? (
         <pre className='prism-code language-json'>{JSON.stringify(telegramData, null, 2)}</pre>
       ) : null}

@@ -13,7 +13,7 @@ const TelegramUpdates: React.FC = () => {
     setError(null);
     try {
       const response = await axios.post(`https://api.telegram.org/bot${botToken}/getUpdates`);
-      setTelegramData(response.data);
+      setTelegramData(response.data);      
     } catch (error) {
       if (error.response) {
         // Если есть ответ от сервера с ошибкой, выводим статус код и описание ошибки
@@ -33,13 +33,14 @@ const TelegramUpdates: React.FC = () => {
     }
   };
 
+  const apiLink = `https://api.telegram.org/bot${botToken}/getUpdates`;
+
   return (
     <div className="container">
       <p style={{ margin: '20px 10px' }}></p>
       <h1>Get Telegram ID</h1>
       <label>
         <input
-          className={style.input}
           type="text"
           value={botToken}
           onChange={(e) => setBotToken(e.target.value)}
@@ -52,7 +53,10 @@ const TelegramUpdates: React.FC = () => {
       ) : error ? (
         <p className={style.error_message}>{error}</p>
       ) : telegramData ? (
-        <pre className='prism-code language-json'>{JSON.stringify(telegramData, null, 2)}</pre>
+        <div>
+          <a href={apiLink} target='_blank'>{apiLink}</a>
+          <pre className='prism-code language-json'>{JSON.stringify(telegramData, null, 2)}</pre>
+        </div>
       ) : null}
     </div>
   );

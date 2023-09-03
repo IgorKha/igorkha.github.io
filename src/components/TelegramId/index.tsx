@@ -16,7 +16,6 @@ const TelegramUpdates: React.FC = () => {
       setTelegramData(response.data);      
     } catch (error) {
       if (error.response) {
-        // Если есть ответ от сервера с ошибкой, выводим статус код и описание ошибки
         setError(`Error: ${error.response.status} - ${error.response.statusText}`);
       } else {
         setError('An error occurred while fetching data.');

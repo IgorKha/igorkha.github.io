@@ -122,7 +122,7 @@ const config = {
             ],
           },
           {
-            label: 'Tools',
+            label: 'Toolbox',
             position: 'left',
             items: [
               {
@@ -140,6 +140,10 @@ const config = {
               {
                 label: 'QR Generator',
                 to: '/QRGenerator'
+              },
+              {
+                label: 'Encoder / Decoder',
+                to: '/encoder-decoder'
               },
             ],
           },

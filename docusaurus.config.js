@@ -137,6 +137,10 @@ const config = {
                 label: 'Telegram ID',
                 to: '/telegramId'
               },
+              {
+                label: 'QR Generator',
+                to: '/QRGenerator'
+              },
             ],
           },
           {

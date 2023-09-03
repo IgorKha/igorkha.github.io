@@ -39,6 +39,12 @@ const TelegramUpdates: React.FC = () => {
     <div className="container">
       <p style={{ margin: '20px 10px' }}></p>
       <h1>Get Telegram ID</h1>
+      <div className='theme-admonition theme-admonition-info alert alert--info' style={{ marginBottom: "10px" }}>
+      I do not collect or store your information.
+      All operations are actually performed on your computer, and I neither can nor want to know what you enter on this page.
+      Furthermore, you can find the source code of this page on
+      my <a href='https://github.com/IgorKha/igorkha.github.io/tree/main/src/components/TelegramId' target='_blank'>Github</a> to verify this.
+      </div>
       <label>
         <input
           type="text"

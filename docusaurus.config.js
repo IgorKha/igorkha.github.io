@@ -145,6 +145,10 @@ const config = {
                 label: 'Encoder / Decoder',
                 to: '/encoder-decoder'
               },
+              {
+                label: 'IPv4 Calculator',
+                to: '/ip4calc'
+              },
             ],
           },
           {
